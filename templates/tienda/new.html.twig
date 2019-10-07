@@ -1,0 +1,83 @@
+{% extends 'base_top_menu.html.twig' %}
+
+{% block title %}New Tienda{% endblock %}
+{% block stylesheets %}
+<!-- dropify css -->
+<link rel="stylesheet" type="text/css" href="../plugins/dropify/css/dropify.css" />
+<link rel="stylesheet" href="../plugins/switchery/switchery.min.css">
+{% endblock %}
+{% block body %}
+<div class="content-page">
+        <!-- Start content -->
+        <div class="content">
+            <div class="container-fluid">
+            <section>
+                <div class="container-alt">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card-box">
+                                <h4 class="header-title m-t-0">Crear Tienda</h4>
+                                {{ form_start(form) }}
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="p-20">
+                                            <div class="form-group m-b-20">
+                                                {{ form_row(form.empresa) }}
+                                            </div>
+                                            <div class="form-group m-b-20">
+                                                {{ form_row(form.nombre) }}
+                                            </div>
+                                            <div class="form-group m-b-20">
+                                                {{ form_row(form.direccion) }}
+                                            </div>
+                                            <div class="form-group m-b-20">
+                                                {{ form_row(form.descripcion) }}
+                                            </div>
+                                            <div class="form-group m-b-20">
+                                                {{ form_row(form.zona) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- end class p-20 -->
+                            </div> <!-- end row -->
+                            <button class="btn btn-success waves-effect waves-light">{{ button_label|default('Guardar') }}</button>
+                            {{ form_end(form) }}
+                            <!-- end form -->
+                        </div> <!-- end card-box -->
+                    </div> <!-- end col -->
+                </div>
+            <!-- end row -->
+                </div>
+            </section>
+            <!-- END HOME -->  
+            </div>  
+        </div>
+    </div>   
+{% endblock %}
+{% block javascripts %}
+    <script>
+        var resizefunc = [];
+    </script>
+
+    <!-- jQuery  -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/detect.js"></script>
+    <script src="assets/js/fastclick.js"></script>
+    <script src="assets/js/jquery.blockUI.js"></script>
+    <script src="assets/js/waves.js"></script>
+    <script src="assets/js/jquery.slimscroll.js"></script>
+    <script src="assets/js/jquery.scrollTo.min.js"></script>
+    <script src="../plugins/switchery/switchery.min.js"></script>
+
+    <!-- dropify js -->
+    <script src="../plugins//dropify/js/dropify.min.js"></script>
+
+    <!-- page specific js -->
+    <script src="assets/pages/jquery.property-add.init.js"></script>
+
+    <!-- App js -->
+    <script src="assets/js/jquery.core.js"></script>
+    <script src="assets/js/jquery.app.js"></script>
+
+{% endblock %}

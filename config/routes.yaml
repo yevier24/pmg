@@ -1,0 +1,147 @@
+######################## LOGIN ########################################
+index:
+    path: /
+    controller: App\Controller\SecurityController::login
+########################################################################  
+
+app_logout:
+    path: /logout
+    controller: App\Controller\SecurityController::logout
+
+######################## TABLERO PRINCIPAL #############################
+app_dashboard:
+    path: /Dashboard
+    controller: App\Controller\DashboardController::index
+########################################################################
+
+######################## USER ########################################
+user_index:
+    path: /User
+    controller: App\Controller\UserController::index
+
+user_new:
+    path: /NewUser
+    controller: App\Controller\UserController::new
+
+user_edit:
+    path: /EditUser/{id}
+    controller: App\Controller\UserController::edit
+
+user_show:
+    path: /ShowUser/{id}
+    controller: App\Controller\UserController::show
+
+user_delete:
+    path: /DeleteUser/{id}
+    controller: App\Controller\UserController::delete
+########################################################################
+
+######################## ITEM ########################################
+item_index:
+    path: /Item
+    controller: App\Controller\ItemController::index
+
+item_new:
+    path: /NewItem
+    controller: App\Controller\ItemController::new
+
+item_edit:
+    path: /EditItem/{id}
+    controller: App\Controller\ItemController::edit
+
+item_show:
+    path: /ShowItem/{id}
+    controller: App\Controller\ItemController::show
+
+item_delete:
+    path: /DeleteItem/{id}
+    controller: App\Controller\ItemController::delete
+########################################################################
+
+############################# TRABAJADOR ################################
+trabajador_index:
+    path: /Trabajador
+    controller: App\Controller\TrabajadorController::index
+
+trabajador_new:
+    path: /NewTrabajador
+    controller: App\Controller\TrabajadorController::new
+
+trabajador_edit:
+    path: /{id}/EditTrabajador
+    controller: App\Controller\TrabajadorController::edit
+
+trabajador_show:
+    path: /{id}/ShowTrabajador
+    controller: App\Controller\TrabajadorController::show
+
+trabajador_delete:
+    path: /{id}/DeleteTrabajador
+    controller: App\Controller\TrabajadorController::delete
+########################################################################
+
+############################# TIENDA ################################
+tienda_index:
+    path: /Tienda
+    controller: App\Controller\TiendaController::index
+
+tienda_new:
+    path: /NewTienda
+    controller: App\Controller\TiendaController::new
+
+tienda_edit:
+    path: /{id}/EditTienda
+    controller: App\Controller\TiendaController::edit
+
+tienda_show:
+    path: /{id}/ShowTienda
+    controller: App\Controller\TiendaController::show
+
+tienda_delete:
+    path: /{id}/DeleteTienda
+    controller: App\Controller\TiendaController::delete
+########################################################################
+
+############################# EMPRESA ################################
+empresa_index:
+    path: /Empresa
+    controller: App\Controller\EmpresaController::index
+
+empresa_new:
+    path: /NewEmpresa
+    controller: App\Controller\EmpresaController::new
+
+empresa_edit:
+    path: /{id}/EditEmpresa
+    controller: App\Controller\EmpresaController::edit
+
+empresa_show:
+    path: /{id}/ShowEmpresa
+    controller: App\Controller\EmpresaController::show
+
+empresa_delete:
+    path: /{id}/DeleteEmpresa
+    controller: App\Controller\EmpresaController::delete
+########################################################################
+
+############################# ZONA ################################
+zona_index:
+    path: /Zona
+    controller: App\Controller\ZonaController::index
+
+zona_new:
+    path: /NewZona
+    controller: App\Controller\ZonaController::new
+
+zona_edit:
+    path: /{id}/EditZona
+    controller: App\Controller\ZonaController::edit
+
+zona_show:
+    path: /{id}/ShowZona
+    controller: App\Controller\ZonaController::show
+
+zona_delete:
+    path: /{id}/DeleteZona
+    controller: App\Controller\ZonaController::delete
+########################################################################

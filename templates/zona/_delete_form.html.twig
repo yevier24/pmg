@@ -1,0 +1,5 @@
+<form method="post" action="{{ path('zona_delete', {'id': zona.id}) }}" onsubmit="return confirm('Seguro quiere eliminar este Zona?');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ zona.id) }}">
+    <button class="btn btn-danger waves-effect waves-light">Eliminar</button>
+</form> 

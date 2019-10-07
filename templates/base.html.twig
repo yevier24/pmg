@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="PMG Spa">
+        <meta name="author" content="Javier Aranguren">
+        <!-- App title -->
+        <title>{% block title %}PMG{% endblock %}</title>
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="assets/images/favicon.ico">
+        <!-- App css -->
+        <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="assets/css/icons.css" />
+        <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+        {% block stylesheets %}
+
+        {% endblock %}
+    </head>
+    <body>
+        
+        {% block body %}{% endblock %}
+        
+        {% block javascripts %}
+        {% endblock %}
+    </body>
+</html>

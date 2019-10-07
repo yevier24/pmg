@@ -1,0 +1,16 @@
+{{ form_start(form, {
+    'attr': {
+        'action': 'doUpload',
+        'enctype': 'multipart/form-data',
+        'method': 'post'
+        }
+    }) 
+}}
+<input type="hidden" name="token" value="{{ csrf_token('upload') }}" />
+
+    {{ form_widget(form) }}  
+    <input type="file" name="myfile" accept="image/x-png,image/gif,image/jpeg" class="dropify" >
+    
+    <button class="btn">{{ button_label|default('Save') }}</button>
+
+{{ form_end(form) }}

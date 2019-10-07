@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Item{% endblock %}
+
+{% block body %}
+    <h1>Create new Item</h1>
+
+    {{ include('item/_form.html.twig') }}
+
+    {#<form action="doUpload" method="post" enctype="multipart/form-data">
+
+        <input type="hidden" name="token" value="{{ csrf_token('upload') }}" />
+    
+        <div>
+            <label>File to upload:</label>
+            <input type="file" name="myfile">
+        </div>
+    
+        <button type="submit">Send</button> 
+    
+    </form>
+#}
+
+{% endblock %}
