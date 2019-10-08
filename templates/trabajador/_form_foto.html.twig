@@ -1,8 +1,8 @@
 <form id="searchForm" action="doUpload" method="post" enctype="multipart/form-data">
     <input type="hidden" name="token" value="{{ csrf_token('upload') }}" />
-    <div>
+    <div id="uploadfoto">
         <label>Subir Foto:</label>
-        <input type="file" name="myfile" accept="image/x-png,image/gif,image/jpeg" class="dropify" >
+        <input type="file" id="myfile" name="myfile" accept="image/x-png,image/gif,image/jpeg" class="dropify" >
         <input type="hidden" id="correo" name="correo" >
         <div id="result" style="display:none;"></div>
         <div id="result1" ></div>
@@ -11,7 +11,14 @@
 </form>           
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script>
-    $(document).ready(function () {
+    /// al iniciar uploader esta desabilitado
+   
+    $(document).ready(function () {            
+        /// si el value de myfile cambia 
+        $("#myfile").change(function() {
+            //// auto submit para subir la foto 
+                $("#btnSubmit").click();
+        });  
         $("#btnSubmit").prop('hidden', true);
         $("#searchForm").submit(function (event) { 
             $('#correo').val($('#result').text());
@@ -30,7 +37,7 @@
                 contentType: false,
                 cache: false,
                 success: function (data) {
-                    alert(data);
+                    //alert(data);
                     $('#trabajador_foto').val(data);
                     $("#result1").html('Carga correcta').addClass( "alert alert-success" );  
                 },

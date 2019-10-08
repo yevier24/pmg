@@ -18,9 +18,9 @@ class Zona
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @ORM\OneToMany(targetEntity="App\Entity\Tienda", mappedBy="zona", cascade={"persist"}))
+     * @ORM\OneToMany(targetEntity="App\Entity\Tienda", mappedBy="zona", cascade={"persist"})
      */
-    private $name;
+    public $name;
     
     public function __toString()
     {

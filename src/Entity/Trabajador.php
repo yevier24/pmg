@@ -31,6 +31,7 @@ class Trabajador
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @ORM\OneToMany(targetEntity="App\Entity\Trabajador", mappedBy="supervisor")
      */
     private $name;
 
@@ -59,6 +60,12 @@ class Trabajador
      * @ORM\Column(type="string", length=12, nullable=true)
      */
     private $rut;
+
+   /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Trabajador", inversedBy="name")
+     * @ORM\JoinColumn(name="supervisor", referencedColumnName="id", nullable=true)
+     */
+    private $supervisor;
 
     public function getId(): ?int
     {
@@ -159,6 +166,18 @@ class Trabajador
     public function setRut(?string $rut): self
     {
         $this->rut = $rut;
+
+        return $this;
+    }
+
+    public function getSupervisor()
+    {
+        return $this->supervisor;
+    }
+
+    public function setSupervisor($supervisor)
+    {
+        $this->supervisor = $supervisor;
 
         return $this;
     }

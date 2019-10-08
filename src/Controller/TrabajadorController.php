@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 use App\Repository\ItemRepository;
+use Symfony\Component\Validator\Constraints\IsNull;
+use Symfony\Component\Validator\Constraints\IsNull as SymfonyIsNull;
 
 class TrabajadorController extends AbstractController
 {
@@ -30,18 +32,20 @@ class TrabajadorController extends AbstractController
     /**
      * @Route("/NewTrabajador", name="trabajador_new", methods={"GET","POST"})
      */
-    public function new(Request $request, ItemRepository $itemRepository): Response
+    public function new(Request $request, ItemRepository $itemRepository, TrabajadorRepository $trabajadorRepository): Response
     {
         $usuario = $this->getUser();
         $trabajador = new Trabajador();
         $form = $this->createForm(TrabajadorType::class, $trabajador);
         $form->handleRequest($request);
         $data = $request->request->get('trabajador');
-        //dump($data['foto']);exit;
+        //dump($data['supervisor']);exit;
         if ($form->isSubmitted() && $form->isValid()) {
             $ItemId = $itemRepository->findOneBy(array('id' => $data['foto']));
+            $supervisorId = $trabajadorRepository->findOneBy(array('id' => $data['supervisor']));
             $entityManager = $this->getDoctrine()->getManager();
             $trabajador->setFoto($ItemId);
+            $trabajador->setSupervisor($supervisorId);
             $entityManager->persist($trabajador);
             $entityManager->flush();
 

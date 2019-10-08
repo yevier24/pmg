@@ -13,6 +13,8 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Validator\Constraints\File;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class TrabajadorType extends AbstractType
 {
@@ -88,7 +90,19 @@ class TrabajadorType extends AbstractType
                     'Vendedor' => 2,
                 ],
             ))
-            ->add('foto', TextType::class, array(
+            ->add('supervisor', EntityType::class, [
+                'class' => Trabajador::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                    ->andWhere('u.tipo_trabajador = :searchTerm')
+                    ->setParameter('searchTerm', 1);
+                },
+                'choice_label' => 'name',
+                'attr' => array(
+                    'class' => 'form-control'
+                    ),
+            ])
+            ->add('foto', HiddenType::class, array(
                 'label' => 'Subir Foto',
                 'attr' => array(
                     'class' => 'form-control',

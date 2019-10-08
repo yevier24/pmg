@@ -18,9 +18,9 @@ class Empresa
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @ORM\OneToMany(targetEntity="App\Entity\Tienda", mappedBy="empresa", cascade={"persist"}))
+     * @ORM\OneToMany(targetEntity="App\Entity\Tienda", mappedBy="empresa", cascade={"persist"})
      */
-    private $name;
+    public $name;
 
     public function __toString()
     {
