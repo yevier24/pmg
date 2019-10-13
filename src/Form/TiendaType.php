@@ -25,6 +25,7 @@ class TiendaType extends AbstractType
                     return $er->createQueryBuilder('u');
                 },
                 'choice_label' => 'name',
+                'label' => 'Cadena',
                 'attr' => array(
                     'class' => 'form-control'
                     ),

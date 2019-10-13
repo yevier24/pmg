@@ -14,10 +14,10 @@ class EmpresaType extends AbstractType
     {
         $builder
         ->add('name', TextType::class, array(
-            'label' => 'Nombre Empresa',
+            'label' => 'Nombre Cadena',
             'attr' => array(
                 'class' => 'form-control',
-                'placeholder' => 'Nombre Empresa'),
+                'placeholder' => 'Nombre Cadena'),
             'required' => true,
         ))
         ;
