@@ -17,12 +17,14 @@ class CargaMeta
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Empresa", inversedBy="name")
+     * @ORM\JoinColumn(name="cadena", referencedColumnName="id", nullable=true)
      */
     private $cadena;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Tienda", inversedBy="nombre")
+     * @ORM\JoinColumn(name="tienda", referencedColumnName="id", nullable=true)
      */
     private $tienda;
 
@@ -51,24 +53,24 @@ class CargaMeta
         return $this->id;
     }
 
-    public function getCadena(): ?string
+    public function getCadena()
     {
         return $this->cadena;
     }
 
-    public function setCadena(string $cadena): self
+    public function setCadena($cadena)
     {
         $this->cadena = $cadena;
 
         return $this;
     }
 
-    public function getTienda(): ?string
+    public function getTienda()
     {
         return $this->tienda;
     }
 
-    public function setTienda(string $tienda): self
+    public function setTienda($tienda)
     {
         $this->tienda = $tienda;
 

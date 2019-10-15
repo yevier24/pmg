@@ -19,6 +19,7 @@ class Empresa
     /**
      * @ORM\Column(type="string", length=255)
      * @ORM\OneToMany(targetEntity="App\Entity\Tienda", mappedBy="empresa", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\CargaMeta", mappedBy="cadena", cascade={"persist"})
      */
     public $name;
 

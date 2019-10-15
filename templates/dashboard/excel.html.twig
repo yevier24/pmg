@@ -22,12 +22,11 @@ var data = [];
 var price = 100;
 var quantity = 1000;  
 </script>
-  
 {% for cargaMeta in cargaMetas %}    
 <script>   
     data.push({ 
         date: '{{ cargaMeta.fecha|date("Y-m-d") }}',
-        price: '{{ cargaMeta.meta }}', 
+        price: 1000, 
         quantity: '{{ cargaMeta.meta }}'
     });
 </script>

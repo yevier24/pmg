@@ -4,8 +4,8 @@
 
 
 {% block body %}
-         
-    
+<link rel="stylesheet" href="amcharts4/index.css" />
+
                 <!-- ============================================================== -->
                 <!-- Start right Content here -->
                 <!-- ============================================================== -->
@@ -30,14 +30,28 @@
                                 </div>
                             </div>
                             <!-- end row -->
+                            {% set metaRipley = 0 %} 
+                            {% set metaParis = 0 %}
+                            {% set metaJohnson = 0 %}
+                            {% set mesAno = "now"|date("Y-m") %}
+                            
+                            {% for cargaMeta in cargaMetas %}  
+                                {% if cargaMeta.cadena == 'Ripley' and cargaMeta.fecha|date("Y-m") == mesAno %} 
+                                    {% set metaRipley = metaRipley + cargaMeta.meta %} 
+                                {% elseif cargaMeta.cadena == 'Paris' %} 
+                                    {% set metaParis = metaParis + cargaMeta.meta %}
+                                {% elseif cargaMeta.cadena == 'Johnson' %} 
+                                    {% set metaJohnson = metaJohnson + cargaMeta.meta %}
+                                {% endif %}
+                            {% endfor %}
                             <div class="row">
                                 <div class="col-xl-3 col-md-6">
                                     <div class="card-box widget-box-two widget-two-primary">
                                         <i class="mdi mdi-chart-areaspline widget-two-icon"></i>
                                         <div class="wigdet-two-content">
-                                            <p class="m-0 text-uppercase font-600 font-secondary text-overflow" title="Statistics">Statistics</p>
-                                            <h2><span data-plugin="counterup">34578</span> <small><i class="mdi mdi-arrow-up text-success"></i></small></h2>
-                                            <p class="text-muted m-0"><b>Last:</b> 30.4k</p>
+                                            <p class="m-0 text-uppercase font-600 font-secondary text-overflow" title="Statistics">Ripley {{mesAno}}</p>
+                                            <h2><span data-plugin="counterup">100000</span> <small><i class="mdi mdi-arrow-up text-success"></i></small></h2>
+                                            <p class="text-muted m-0"><b>Meta:</b> {{ metaRipley|number_format(2, ',', '.') }}</p>
                                         </div>
                                     </div>
                                 </div><!-- end col -->
@@ -45,9 +59,9 @@
                                     <div class="card-box widget-box-two widget-two-warning">
                                         <i class="mdi mdi-layers widget-two-icon"></i>
                                         <div class="wigdet-two-content">
-                                            <p class="m-0 text-uppercase font-600 font-secondary text-overflow" title="User This Month">User This Month</p>
+                                            <p class="m-0 text-uppercase font-600 font-secondary text-overflow" title="User This Month">Paris</p>
                                             <h2><span data-plugin="counterup">52410 </span> <small><i class="mdi mdi-arrow-up text-success"></i></small></h2>
-                                            <p class="text-muted m-0"><b>Last:</b> 40.33k</p>
+                                            <p class="text-muted m-0"><b>Meta:</b> {{ metaParis|number_format(2, ',', '.') }}</p>
                                         </div>
                                     </div>
                                 </div><!-- end col -->
@@ -55,12 +69,12 @@
                                     <div class="card-box widget-box-two widget-two-danger">
                                         <i class="mdi mdi-access-point-network widget-two-icon"></i>
                                         <div class="wigdet-two-content">
-                                            <p class="m-0 text-uppercase font-600 font-secondary text-overflow" title="Statistics">Statistics</p>
+                                            <p class="m-0 text-uppercase font-600 font-secondary text-overflow" title="Statistics">Johnson</p>
                                             <h2><span data-plugin="counterup">6352</span> <small><i class="mdi mdi-arrow-up text-success"></i></small></h2>
-                                            <p class="text-muted m-0"><b>Last:</b> 30.4k</p>
+                                            <p class="text-muted m-0"><b>Meta:</b> {{ metaJohnson|number_format(2, ',', '.') }}</p>
                                         </div>
                                     </div>
-                                </div><!-- end col -->
+                                </div><!-- end col 
                                 <div class="col-xl-3 col-md-6">
                                     <div class="card-box widget-box-two widget-two-success">
                                         <i class="mdi mdi-account-convert widget-two-icon"></i>
@@ -70,7 +84,7 @@
                                             <p class="text-muted m-0"><b>Last:</b> 1250</p>
                                         </div>
                                     </div>
-                                </div><!-- end col -->
+                                </div>--><!-- end col -->
                             </div>
                             <!-- end row -->
                             <!--<div class="row">
@@ -99,7 +113,7 @@
                                 </div>
                             </div>
                              end row -->    
-                            <div class="row">
+                            <div class="row"><div id="chartdiv"></div>
                                 <div class="col-lg-4">
                                     <div class="card-box">
                                         <h4 class="header-title m-t-0 m-b-30">Messages</h4>
@@ -173,7 +187,7 @@
                                     </div> <!-- end card -->
                                 </div>
                                 <!-- end col -->
-    
+                                
                                 <div class="col-lg-8">
                                     <div class="card-box">
                                         <h4 class="header-title m-t-0 m-b-30">Recent Users</h4>
@@ -222,11 +236,108 @@
                                     </div> <!-- end card -->
                                 </div>
                                 <!-- end col -->
+                                
+                                <!-- amCharts  V4-->
+    <script src="amcharts4/core.js"></script>
+    <script src="amcharts4/charts.js"></script>
+    <script src="amcharts4/themes/animated.js"></script>
+    <script>
+        am4core.useTheme(am4themes_animated);
     
+    var chart = am4core.create("chartdiv", am4charts.XYChart);
+    
+    var data = [];
+    var price = 100;
+    var quantity = 1000;  
+    </script>
+    {% for cargaMeta in cargaMetas %}    
+    <script>   
+        data.push({ 
+            date: '{% if cargaMeta.cadena == "Ripley" and cargaMeta.fecha|date("Y-m") == mesAno %} {{ cargaMeta.fecha|date("Y-m-d") }} {% endif %}',   
+            price: 1000, 
+            quantity: '{% if cargaMeta.cadena == "Ripley" and cargaMeta.fecha|date("Y-m") == mesAno %} {{ cargaMeta.meta }} {% endif %}'
+        });
+    </script>
+    {% endfor %}
+    <script>
+        
+        
+    chart.data = data;
+    // the following line makes value axes to be arranged vertically.
+    chart.leftAxesContainer.layout = "vertical"; 
+    
+    // uncomment this line if you want to change order of axes
+    //chart.bottomAxesContainer.reverseOrder = true;
+    
+    var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+    dateAxis.renderer.grid.template.location = 0;
+    dateAxis.renderer.ticks.template.length = 8;
+    dateAxis.renderer.ticks.template.strokeOpacity = 0.1;
+    dateAxis.renderer.grid.template.disabled = true;
+    dateAxis.renderer.ticks.template.disabled = false;
+    dateAxis.renderer.ticks.template.strokeOpacity = 0.2;
+    
+    // these two lines makes the axis to be initially zoomed-in
+    dateAxis.start = 0.7;
+    dateAxis.keepSelection = true;
+    
+    var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+    valueAxis.tooltip.disabled = true;
+    valueAxis.zIndex = 1;
+    valueAxis.renderer.baseGrid.disabled = true;
+    // height of axis
+    valueAxis.height = am4core.percent(65);
+    
+    valueAxis.renderer.gridContainer.background.fill = am4core.color("#000000");
+    valueAxis.renderer.gridContainer.background.fillOpacity = 0.05;
+    valueAxis.renderer.inside = true;
+    valueAxis.renderer.labels.template.verticalCenter = "bottom";
+    valueAxis.renderer.labels.template.padding(2,2,2,2);
+    //valueAxis.renderer.maxLabelPosition = 0.95;
+    valueAxis.renderer.fontSize = "0.8em"
+    
+    var series = chart.series.push(new am4charts.LineSeries());
+    series.dataFields.dateX = "date";
+    series.dataFields.valueY = "price";
+    series.tooltipText = "{valueY.value}";
+    series.name = "Series 1";
+    
+    var valueAxis2 = chart.yAxes.push(new am4charts.ValueAxis());
+    valueAxis2.tooltip.disabled = true;
+    // height of axis
+    valueAxis2.height = am4core.percent(35);
+    valueAxis2.zIndex = 3
+    // this makes gap between panels
+    valueAxis2.marginTop = 30;
+    valueAxis2.renderer.baseGrid.disabled = true;
+    valueAxis2.renderer.inside = true;
+    valueAxis2.renderer.labels.template.verticalCenter = "bottom";
+    valueAxis2.renderer.labels.template.padding(2,2,2,2);
+    //valueAxis.renderer.maxLabelPosition = 0.95;
+    valueAxis2.renderer.fontSize = "0.8em"
+    
+    valueAxis2.renderer.gridContainer.background.fill = am4core.color("#000000");
+    valueAxis2.renderer.gridContainer.background.fillOpacity = 0.05;
+    
+    var series2 = chart.series.push(new am4charts.ColumnSeries());
+    series2.dataFields.dateX = "date";
+    series2.dataFields.valueY = "quantity";
+    series2.yAxis = valueAxis2;
+    series2.tooltipText = "{valueY.value}";
+    series2.name = "Series 2";
+    
+    chart.cursor = new am4charts.XYCursor();
+    chart.cursor.xAxis = dateAxis;
+    
+    var scrollbarX = new am4charts.XYChartScrollbar();
+    scrollbarX.series.push(series);
+    scrollbarX.marginBottom = 20;
+    chart.scrollbarX = scrollbarX;
+    </script>
                             </div>
                             <!-- end row -->
     
-    
+                            
                         </div> <!-- container -->
     
                     </div> <!-- content -->
@@ -235,7 +346,7 @@
     
                 </div>
 
-    
+                
                 <!-- ============================================================== -->
                 <!-- End Right content here -->
                 <!-- ============================================================== -->
@@ -245,7 +356,7 @@
 {% block javascripts %}
     <script>
         var resizefunc = [];
-    </script>
+    </script>       
 
     <!-- jQuery  -->
     <script src="assets/js/jquery.min.js"></script>

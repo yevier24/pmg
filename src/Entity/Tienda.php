@@ -18,6 +18,7 @@ class Tienda
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @ORM\OneToMany(targetEntity="App\Entity\CargaMeta", mappedBy="tienda", cascade={"persist"})
      */
     private $nombre;
 
@@ -48,12 +49,21 @@ class Tienda
         return $this->id;
     }
 
-    public function getNombre(): ?string
+    /**
+     * @return Collection|Nombre[]
+     */
+    public function getNombre()
     {
         return $this->nombre;
     }
-
-    public function setNombre(string $nombre): self
+    /**
+    * Set nombre
+    *
+    * @param string $nombre
+    *
+    * @return Nombre
+    */
+    public function setNombre($nombre)
     {
         $this->nombre = $nombre;
 

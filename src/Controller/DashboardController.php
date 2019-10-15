@@ -9,12 +9,15 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Entity\CargaMeta;
 use App\Repository\CargaMetaRepository;
 
+use App\Repository\EmpresaRepository;
+
+use App\Repository\TiendaRepository;
+
 use PHPExcel;
 use PHPExcel_IOFactory;
 use PHPExcel_Shared_Date;
 use PHPExcel_Worksheet;
-use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
-use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
+
 
 use App\Repository\TrabajadorRepository;
 
@@ -23,21 +26,23 @@ class DashboardController extends AbstractController
     /**
      * @Route("/Dashboard", name="app_dashboard")
      */
-    public function index(TrabajadorRepository $trabajadorRepository): Response
-    {
+    public function index(CargaMetaRepository $cargaMetaRepository, TrabajadorRepository $trabajadorRepository): Response
+    {        
         $usuario = $this->getUser();       
         //dump($usuario);exit;
         return $this->render('dashboard/index.html.twig', [
             'controller_name' => 'DashboardController',
             'usuario' => $usuario,
             'trabajadors' => $trabajadorRepository->findAll(),
+            'cargaMetas' => $cargaMetaRepository->findAll(),
         ]);
     }
 
     /**
      * @Route("/excelReader", name="app_xls")
      */
-    public function excelReader(){
+    public function excelReader(CargaMetaRepository $cargaMetaRepository, EmpresaRepository $empresaRepository, TiendaRepository $tiendaRepository)
+    {
 
         // sin limite de tiempo para la carga de datos
         set_time_limit(0);
@@ -142,6 +147,9 @@ class DashboardController extends AbstractController
         $count_filas++;
         }
         $contador = 0;
+        $countNuevo = 0;
+        $countExiste = 0;
+        $mostrar = array();
         for($filas = 0; $filas != $count_filas; $filas++) 
         {
             for($columnas = 0; $columnas != $count_columnas; $columnas++) 
@@ -151,22 +159,41 @@ class DashboardController extends AbstractController
                 /// revisa que exista otra tienda para insertar datos
                 if (!is_null($cadenas[$filas])){
                     array_push($variables,$constante);
+                    ///busca objeto cadena para insertar
+                    $cadenaObj = $empresaRepository->findOneBy(array('name' => $cadenas[$filas]));
 
-                    /// insertar carga
-                    $carga = new CargaMeta();
-                    $carga->setCadena($cadenas[$filas]);
-                    $carga->setTienda($tiendas[$filas]);
-                    $carga->setFecha(new \DateTime($fechas[$columnas]));
-                    $carga->setDiaSemana($dias[$columnas]);
-                    $carga->setSemana($semanas[$columnas]);
-                    $carga->setMeta($metas[$contador]);
-                    $entityManager->persist($carga);
-                    $entityManager->flush();
+                    /// busca objeto tienda para insertar
+                    $tiendaObj = $tiendaRepository->findOneBy(array('nombre' => $tiendas[$filas]));
+                    
+                    /// busca si existe la carga
+                    $existe = $cargaMetaRepository->findOneBy(array('cadena' => $cadenaObj, 'tienda' => $tiendaObj, 'fecha' => new \DateTime($fechas[$columnas]) ));
+                    
+                    if (is_null($existe)){
+                        /// insertar carga nueva
+                        $carga = new CargaMeta();
+                        $carga->setCadena($cadenaObj);
+                        $carga->setTienda($tiendaObj);
+                        $carga->setFecha(new \DateTime($fechas[$columnas]));
+                        $carga->setDiaSemana($dias[$columnas]);
+                        $carga->setSemana($semanas[$columnas]);
+                        $carga->setMeta($metas[$contador]);
+                        $entityManager->persist($carga);
+                        $entityManager->flush();
+                        $countNuevo++;
+                    } else {
+                        /// actualiza meta de la carga
+                        $existe->setMeta($metas[$contador]);
+                        $entityManager->persist($existe);
+                        $entityManager->flush();
+                        $countExiste++;
+                    }
                 }
                 $contador++;
             } 
         } 
-        //dump($variables);exit;
+        $mostrar = 'Insert:'.$countNuevo.' Update:'.$countExiste; //.' '.$variables;
+        dump($mostrar);exit;
+        
     
      }
 
@@ -176,7 +203,7 @@ class DashboardController extends AbstractController
     public function excelShow(CargaMetaRepository $cargaMetaRepository, $empresa = 1): Response
     {
         return $this->render('dashboard/excel.html.twig', [
-            'cargaMetas' => $cargaMetaRepository->findOneBy(array('id' => $empresa)),
+            'cargaMetas' => $cargaMetaRepository->findAll(),
         ]);
     }
 }
