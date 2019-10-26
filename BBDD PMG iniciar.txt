@@ -1,0 +1,49 @@
+INSERT INTO `user` (`id`, `email`, `roles`, `password`, `name`, `phone`, `address`, `foto`) VALUES
+(1, 'Administrador@pmg.cl', '[]', '$argon2id$v=19$m=65536,t=4,p=1$S0svQ2djV0oyWkdhSUsuVw$x6zAgFuim45FEV33EFCix/6ve7I5ZCmfOz4qYy8gxTw', 'Administrador', 991769218, 'PMG', NULL);
+
+INSERT INTO `trabajador` (`id`, `foto`, `supervisor`, `email`, `pass`, `name`, `phone`, `address`, `tipo_trabajador`, `rut`) VALUES
+(1, NULL, 1, 'Administrador', '123456', 'Administrador', 991769218, 'PMG', 1, '');
+
+
+INSERT INTO `zona` (`id`, `name`) VALUES
+(1, 'Zona 1');
+
+INSERT INTO `empresa` (`id`, `name`) VALUES
+(1, 'Paris'),
+(2, 'Johnson'),
+(3, 'Ripley');
+
+
+INSERT INTO `tienda` (`empresa`, `zona`, `nombre`, `direccion`, `descripcion`) VALUES
+( 1, 1, 'Talca', 'Talca', 'Talca'),
+( 1, 1, 'Temuco', 'Temuco', 'Temuco'),
+( 1, 1, 'La Calera', 'La Calera', 'La Calera'),
+( 1, 1, 'Costanera Center', 'Costanera Center', 'Costanera Center'),
+( 1, 1, 'Curico', 'Curico', 'Curico'),
+( 1, 1, 'Marina Arauco', 'Marina Arauco', 'Marina Arauco'),
+( 1, 1, 'Plaza Oeste', 'Plaza Oeste', 'Plaza Oeste'),
+( 1, 1, 'Copiapo', 'Copiapo', 'Copiapo'),
+( 1, 1, 'Antofagasta', 'Antofagasta', 'Antofagasta'),
+( 1, 1, 'Mall Concepcion', 'Mall Concepcion', 'Mall Concepcion'),
+( 1, 1, 'Plaza Vespucio', 'Plaza Vespucio', 'Plaza Vespucio'),
+( 1, 1, 'Los Andes', 'Los Andes', 'Los Andes'),
+( 1, 1, 'Florida Center', 'Florida Center', 'Florida Center'),
+( 1, 1, 'M.Costanera P.Montt', 'M.Costanera P.Montt', 'M.Costanera P.Montt'),
+( 1, 1, 'La Serena', 'La Serena', 'La Serena'),
+( 1, 1, 'Plaza Egana', 'Plaza Egana', 'Plaza Egana'),
+( 1, 1, 'Coquimbo', 'Coquimbo', 'Coquimbo'),
+( 1, 1, 'Los Angeles', 'Los Angeles', 'Los Angeles'),
+( 1, 1, 'El Trebol', 'El Trebol', 'El Trebol'),
+( 1, 1, 'San Bernardo', 'San Bernardo', 'San Bernardo'),
+( 1, 1, 'Valparaiso', 'Valparaiso', 'Valparaiso'),
+( 1, 1, 'Portal Temuco', 'Portal Temuco', 'Portal Temuco'),
+( 1, 1, 'Puente', 'Puente', 'Puente'),
+( 1, 1, 'Maipu', 'Maipu', 'Maipu'),
+( 1, 1, 'Iquique', 'Iquique', 'Iquique'),
+( 1, 1, 'Plaza Tobalaba', 'Plaza Tobalaba', 'Plaza Tobalaba'),
+( 1, 1, 'Los Dominicos', 'Los Dominicos', 'Los Dominicos'),
+( 1, 1, 'Quilpue', 'Quilpue', 'Quilpue');
+
+
+
+

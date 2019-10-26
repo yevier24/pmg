@@ -4,348 +4,476 @@
 
 
 {% block body %}
+<!-- scroll -->
+<div style="height:1000px;overflow:auto">
 <link rel="stylesheet" href="amcharts4/index.css" />
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="content-page">
+        <!-- Start content -->
+        <div class="content">
+            <div class="row">
+            <div class="container-fluid">
 
-                <!-- ============================================================== -->
-                <!-- Start right Content here -->
-                <!-- ============================================================== -->
-                <div class="content-page">
-                    <!-- Start content -->
-                    <div class="content">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="page-title-box">
-                                        <h4 class="page-title">Tablero </h4>
-                                        <ol class="breadcrumb p-0 m-0">
-                                            <li class="breadcrumb-item">
-                                                <a href="#">PMG</a>
-                                            </li>
-                                            <li class="breadcrumb-item">
-                                                <a href="#">Tablero </a>
-                                            </li>
-                                        </ol>
-                                        <div class="clearfix"></div>
-                                    </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box">
+                            <h4 class="page-title">Tablero </h4>
+                            <ol class="breadcrumb p-0 m-0">
+                                <li class="breadcrumb-item">
+                                    <a href="#">PMG</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="#">Tablero </a>
+                                </li>
+                            </ol>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end row -->
+                {% set metaRipley = 0 %} 
+                {% set metaParis = 0 %}
+                {% set metaJohnson = 0 %}
+                {% set mesAno = "now"|date("Y-m") %}
+                
+                {% for cargaMeta in cargaMetas %}  
+                    {% if cargaMeta.cadena == 'Ripley' and cargaMeta.fecha|date("Y-m") == mesAno %} 
+                        {% set metaRipley = metaRipley + cargaMeta.meta %} 
+                    {% elseif cargaMeta.cadena == 'Paris' %} 
+                        {% set metaParis = metaParis + cargaMeta.meta %}
+                    {% elseif cargaMeta.cadena == 'Johnson' %} 
+                        {% set metaJohnson = metaJohnson + cargaMeta.meta %}
+                    {% endif %}
+                {% endfor %}
+                <div class="row">
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card-box widget-box-two widget-two-primary">
+                            <i class="mdi mdi-chart-areaspline widget-two-icon"></i>
+                            <div class="wigdet-two-content">
+                                <p class="m-0 text-uppercase font-600 font-secondary text-overflow" title="Statistics">Ripley {{mesAno}}</p>
+                                <h2><span data-plugin="counterup">100000</span> <small><i class="mdi mdi-arrow-up text-success"></i></small></h2>
+                                <p class="text-muted m-0"><b>Meta:</b> {{ metaRipley|number_format(2, ',', '.') }}</p>
+                            </div>
+                        </div>
+                    </div><!-- end col -->
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card-box widget-box-two widget-two-warning">
+                            <i class="mdi mdi-layers widget-two-icon"></i>
+                            <div class="wigdet-two-content">
+                                <p class="m-0 text-uppercase font-600 font-secondary text-overflow" title="User This Month">Paris</p>
+                                <h2><span data-plugin="counterup">52410 </span> <small><i class="mdi mdi-arrow-up text-success"></i></small></h2>
+                                <p class="text-muted m-0"><b>Meta:</b> {{ metaParis|number_format(2, ',', '.') }}</p>
+                            </div>
+                        </div>
+                    </div><!-- end col -->
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card-box widget-box-two widget-two-danger">
+                            <i class="mdi mdi-access-point-network widget-two-icon"></i>
+                            <div class="wigdet-two-content">
+                                <p class="m-0 text-uppercase font-600 font-secondary text-overflow" title="Statistics">Johnson</p>
+                                <h2><span data-plugin="counterup">6352</span> <small><i class="mdi mdi-arrow-up text-success"></i></small></h2>
+                                <p class="text-muted m-0"><b>Meta:</b> {{ metaJohnson|number_format(2, ',', '.') }}</p>
+                            </div>
+                        </div>
+                    </div><!-- end col 
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card-box widget-box-two widget-two-success">
+                            <i class="mdi mdi-account-convert widget-two-icon"></i>
+                            <div class="wigdet-two-content">
+                                <p class="m-0 text-uppercase font-600 font-secondary text-overflow" title="User Today">User Today</p>
+                                <h2><span data-plugin="counterup">895 </span> <small><i class="mdi mdi-arrow-down text-danger"></i></small></h2>
+                                <p class="text-muted m-0"><b>Last:</b> 1250</p>
+                            </div>
+                        </div>
+                    </div>--><!-- end col -->
+                </div>
+                <!-- end row -->
+                <!--<div class="row">
+                    <div class="col-xl-6">
+                        <div class="card-box">
+                            <h4 class="header-title m-t-0 m-b-30">Total Revenue</h4>
+                            <div id="website-stats" style="height: 320px;" class="flot-chart"></div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6">
+                        <div class="card-box">
+                            <h4 class="header-title m-t-0">Sales Analytics</h4>
+                            <div class="float-right m-b-30">
+                                <div id="reportrange" class="form-control">
+                                    <i class="far fa-calendar-alt"></i>
+                                    <span></span>
                                 </div>
                             </div>
-                            <!-- end row -->
-                            {% set metaRipley = 0 %} 
-                            {% set metaParis = 0 %}
-                            {% set metaJohnson = 0 %}
-                            {% set mesAno = "now"|date("Y-m") %}
-                            
-                            {% for cargaMeta in cargaMetas %}  
-                                {% if cargaMeta.cadena == 'Ripley' and cargaMeta.fecha|date("Y-m") == mesAno %} 
-                                    {% set metaRipley = metaRipley + cargaMeta.meta %} 
-                                {% elseif cargaMeta.cadena == 'Paris' %} 
-                                    {% set metaParis = metaParis + cargaMeta.meta %}
-                                {% elseif cargaMeta.cadena == 'Johnson' %} 
-                                    {% set metaJohnson = metaJohnson + cargaMeta.meta %}
-                                {% endif %}
-                            {% endfor %}
-                            <div class="row">
-                                <div class="col-xl-3 col-md-6">
-                                    <div class="card-box widget-box-two widget-two-primary">
-                                        <i class="mdi mdi-chart-areaspline widget-two-icon"></i>
-                                        <div class="wigdet-two-content">
-                                            <p class="m-0 text-uppercase font-600 font-secondary text-overflow" title="Statistics">Ripley {{mesAno}}</p>
-                                            <h2><span data-plugin="counterup">100000</span> <small><i class="mdi mdi-arrow-up text-success"></i></small></h2>
-                                            <p class="text-muted m-0"><b>Meta:</b> {{ metaRipley|number_format(2, ',', '.') }}</p>
-                                        </div>
-                                    </div>
-                                </div><!-- end col -->
-                                <div class="col-xl-3 col-md-6">
-                                    <div class="card-box widget-box-two widget-two-warning">
-                                        <i class="mdi mdi-layers widget-two-icon"></i>
-                                        <div class="wigdet-two-content">
-                                            <p class="m-0 text-uppercase font-600 font-secondary text-overflow" title="User This Month">Paris</p>
-                                            <h2><span data-plugin="counterup">52410 </span> <small><i class="mdi mdi-arrow-up text-success"></i></small></h2>
-                                            <p class="text-muted m-0"><b>Meta:</b> {{ metaParis|number_format(2, ',', '.') }}</p>
-                                        </div>
-                                    </div>
-                                </div><!-- end col -->
-                                <div class="col-xl-3 col-md-6">
-                                    <div class="card-box widget-box-two widget-two-danger">
-                                        <i class="mdi mdi-access-point-network widget-two-icon"></i>
-                                        <div class="wigdet-two-content">
-                                            <p class="m-0 text-uppercase font-600 font-secondary text-overflow" title="Statistics">Johnson</p>
-                                            <h2><span data-plugin="counterup">6352</span> <small><i class="mdi mdi-arrow-up text-success"></i></small></h2>
-                                            <p class="text-muted m-0"><b>Meta:</b> {{ metaJohnson|number_format(2, ',', '.') }}</p>
-                                        </div>
-                                    </div>
-                                </div><!-- end col 
-                                <div class="col-xl-3 col-md-6">
-                                    <div class="card-box widget-box-two widget-two-success">
-                                        <i class="mdi mdi-account-convert widget-two-icon"></i>
-                                        <div class="wigdet-two-content">
-                                            <p class="m-0 text-uppercase font-600 font-secondary text-overflow" title="User Today">User Today</p>
-                                            <h2><span data-plugin="counterup">895 </span> <small><i class="mdi mdi-arrow-down text-danger"></i></small></h2>
-                                            <p class="text-muted m-0"><b>Last:</b> 1250</p>
-                                        </div>
-                                    </div>
-                                </div>--><!-- end col -->
-                            </div>
-                            <!-- end row -->
-                            <!--<div class="row">
-                                <div class="col-xl-6">
-                                    <div class="card-box">
-                                        <h4 class="header-title m-t-0 m-b-30">Total Revenue</h4>
-                                        <div id="website-stats" style="height: 320px;" class="flot-chart"></div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-6">
-                                    <div class="card-box">
-                                        <h4 class="header-title m-t-0">Sales Analytics</h4>
-                                        <div class="float-right m-b-30">
-                                            <div id="reportrange" class="form-control">
-                                                <i class="far fa-calendar-alt"></i>
-                                                <span></span>
-                                            </div>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                        <div id="donut-chart">
-                                            <div id="donut-chart-container" class="flot-chart" style="height: 240px;">
-                                            </div>
-                                        </div>
-                                        <p class="text-muted m-b-0 m-t-15 font-13 text-overflow">Pie chart is used to see the proprotion of each data groups, making Flot pie chart is pretty simple, in order to make pie chart you have to incldue jquery.flot.pie.js plugin.</p>
-                                    </div>
+                            <div class="clearfix"></div>
+                            <div id="donut-chart">
+                                <div id="donut-chart-container" class="flot-chart" style="height: 240px;">
                                 </div>
                             </div>
-                             end row -->    
-                            <div class="row"><div id="chartdiv"></div>
-                                <div class="col-lg-4">
-                                    <div class="card-box">
-                                        <h4 class="header-title m-t-0 m-b-30">Messages</h4>
-                                        <div class="inbox-widget slimscroll-alt" style="min-height: 372px;">
-                                            <a href="#">
-                                                <div class="inbox-item">
-                                                    <div class="inbox-item-img"><img src="assets/images/users/avatar-1.jpg" class="rounded-circle" alt=""></div>
-                                                    <p class="inbox-item-author">Chadengle</p>
-                                                    <p class="inbox-item-text">Hey! there I'm available...</p>
-                                                    <p class="inbox-item-date">13:40 PM</p>
-                                                </div>
-                                            </a>
-                                            <a href="#">
-                                                <div class="inbox-item">
-                                                    <div class="inbox-item-img"><img src="assets/images/users/avatar-2.jpg" class="rounded-circle" alt=""></div>
-                                                    <p class="inbox-item-author">Tomaslau</p>
-                                                    <p class="inbox-item-text">I've finished it! See you so...</p>
-                                                    <p class="inbox-item-date">13:34 PM</p>
-                                                </div>
-                                            </a>
-                                            <a href="#">
-                                                <div class="inbox-item">
-                                                    <div class="inbox-item-img"><img src="assets/images/users/avatar-3.jpg" class="rounded-circle" alt=""></div>
-                                                    <p class="inbox-item-author">Stillnotdavid</p>
-                                                    <p class="inbox-item-text">This theme is awesome!</p>
-                                                    <p class="inbox-item-date">13:17 PM</p>
-                                                </div>
-                                            </a>
-                                            <a href="#">
-                                                <div class="inbox-item">
-                                                    <div class="inbox-item-img"><img src="assets/images/users/avatar-4.jpg" class="rounded-circle" alt=""></div>
-                                                    <p class="inbox-item-author">Kurafire</p>
-                                                    <p class="inbox-item-text">Nice to meet you</p>
-                                                    <p class="inbox-item-date">12:20 PM</p>
-                                                </div>
-                                            </a>
-                                            <a href="#">
-                                                <div class="inbox-item">
-                                                    <div class="inbox-item-img"><img src="assets/images/users/avatar-5.jpg" class="rounded-circle" alt=""></div>
-                                                    <p class="inbox-item-author">Shahedk</p>
-                                                    <p class="inbox-item-text">Hey! there I'm available...</p>
-                                                    <p class="inbox-item-date">10:15 AM</p>
-                                                </div>
-                                            </a>
-                                            <a href="#">
-                                                <div class="inbox-item">
-                                                    <div class="inbox-item-img"><img src="assets/images/users/avatar-6.jpg" class="rounded-circle" alt=""></div>
-                                                    <p class="inbox-item-author">Adhamdannaway</p>
-                                                    <p class="inbox-item-text">This theme is awesome!</p>
-                                                    <p class="inbox-item-date">9:56 AM</p>
-                                                </div>
-                                            </a>
-                                            <a href="#">
-                                                <div class="inbox-item">
-                                                    <div class="inbox-item-img"><img src="assets/images/users/avatar-8.jpg" class="rounded-circle" alt=""></div>
-                                                    <p class="inbox-item-author">Arashasghari</p>
-                                                    <p class="inbox-item-text">Hey! there I'm available...</p>
-                                                    <p class="inbox-item-date">10:15 AM</p>
-                                                </div>
-                                            </a>
-                                            <a href="#">
-                                                <div class="inbox-item">
-                                                    <div class="inbox-item-img"><img src="assets/images/users/avatar-9.jpg" class="rounded-circle" alt=""></div>
-                                                    <p class="inbox-item-author">Joshaustin</p>
-                                                    <p class="inbox-item-text">I've finished it! See you so...</p>
-                                                    <p class="inbox-item-date">9:56 AM</p>
-                                                </div>
-                                            </a>
-                                        </div>
-    
-                                    </div> <!-- end card -->
+                            <p class="text-muted m-b-0 m-t-15 font-13 text-overflow">Pie chart is used to see the proprotion of each data groups, making Flot pie chart is pretty simple, in order to make pie chart you have to incldue jquery.flot.pie.js plugin.</p>
+                        </div>
+                    </div>
+                </div>
+                    end row -->  
+                    
+                <div class="property-card property-horizontal bg-white">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="property-image" style="background: url('assets/images/properties/1.jpg') center center / cover no-repeat;">
+                                <span class="property-label badge badge-danger">For Sale</span>
+                            </div>
+                        </div>
+                        <!-- /col 4 -->
+                        <div class="col-sm-8">
+                            <div class="property-content">
+                                <div class="listingInfo">
+                                    <div class="">
+                                        <h4 class="text-success m-t-0">$390,000 - $430,000</h4>
+                                    </div>
+                                    <div class="">
+                                        <h4><a href="#" class="text-dark">4BHK Alexander Court,New York</a></h4>
+                                        <p class="text-muted"><i class="mdi mdi-map-marker-radius m-r-5"></i>245 E 20th St, New York, NY 201609</p>
+
+                                        <p class="font-13 text-muted m-b-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit Aliquam gravida magna et fringilla convallis. Pellentesque habitant morb</p>
+                                    </div>
                                 </div>
-                                <!-- end col -->
-                                
-                                <div class="col-lg-8">
-                                    <div class="card-box">
-                                        <h4 class="header-title m-t-0 m-b-30">Recent Users</h4>
-    
-                                        <div class="table-responsive">
-                                            <table class="table table table-hover m-0">
-                                                <thead>
-                                                    <tr>
-                                                        <th></th>
-                                                        <th>Nombre</th>
-                                                        <th>Teléfono</th>
-                                                        <th>Dirección</th>
-                                                        <th>Correo</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {% for trabajador in trabajadors %}
-                                                        <tr>
-                                                            <td>
-                                                                {% if trabajador.foto is empty %} 
-                                                                    <img src="assets/images/users/avatar-2.jpg" alt="user" class="thumb-sm rounded-circle" />
-                                                                {% else %}
-                                                                    <img src="uploads/image/{{ trabajador.foto.image }}" alt="user" class="thumb-sm rounded-circle" />
-                                                                {% endif %}
-                                                            </td>
-                                                            <td>{{ trabajador.name }}</td>
-                                                            <td>{{ trabajador.phone }}</td>
-                                                            <td>{{ trabajador.address }}</td>
-                                                            <td>
-                                                                {% if trabajador.tipoTrabajador == 1 %} 
-                                                                    Supervisor
-                                                                {% elseif trabajador.tipoTrabajador == 2 %}
-                                                                    Vendedor
-                                                                {% endif %}
-                                                            </td>
-                                                        </tr>
+                                <div class="property-action">
+                                    <a href="#" target="new_blank" data-toggle="tooltip" data-placement="top" title="" data-original-title="280 square feet"><i class="mdi mdi-view-grid"></i><span>280</span></a>
+                                    <a href="#" target="new_blank" data-toggle="tooltip" data-placement="top" title="" data-original-title="4 Bedroom House"><i class="mdi mdi-hotel"></i><span>4</span></a>
+                                    <a href="#" target="new_blank" data-toggle="tooltip" data-placement="top" title="" data-original-title="2 Parking space"><i class="mdi mdi-car"></i><span>2</span></a>
+                                    <a href="#" target="new_blank" data-toggle="tooltip" data-placement="top" title="" data-original-title="24h Electricity"><i class="mdi mdi-battery-charging-80"></i><span> 24H</span></a>
+                                    <div class="float-right">
+                                        <a href="#" class="btn btn-light"><i class="far fa-heart"></i><span>Save</span></a>
+                                    </div>
+                                </div>
+                                <!-- end. Card actions -->
+                            </div>
+                        </div>
+                        <!-- /col 8 -->
+                    </div>
+                    <!-- /inner row -->
+                </div>
+                <!-- End property item -->
+
+
+                <div class="row"><div id="chartdiv"></div>
+                    <div class="col-lg-4">
+                        <div class="card-box">
+                            <h4 class="header-title m-t-0 m-b-30">Messages</h4>
+                            <div class="inbox-widget slimscroll-alt" style="min-height: 372px;">
+                                <a href="#">
+                                    <div class="inbox-item">
+                                        <div class="inbox-item-img"><img src="assets/images/users/avatar-1.jpg" class="rounded-circle" alt=""></div>
+                                        <p class="inbox-item-author">Chadengle</p>
+                                        <p class="inbox-item-text">Hey! there I'm available...</p>
+                                        <p class="inbox-item-date">13:40 PM</p>
+                                    </div>
+                                </a>
+                                <a href="#">
+                                    <div class="inbox-item">
+                                        <div class="inbox-item-img"><img src="assets/images/users/avatar-2.jpg" class="rounded-circle" alt=""></div>
+                                        <p class="inbox-item-author">Tomaslau</p>
+                                        <p class="inbox-item-text">I've finished it! See you so...</p>
+                                        <p class="inbox-item-date">13:34 PM</p>
+                                    </div>
+                                </a>
+                                <a href="#">
+                                    <div class="inbox-item">
+                                        <div class="inbox-item-img"><img src="assets/images/users/avatar-3.jpg" class="rounded-circle" alt=""></div>
+                                        <p class="inbox-item-author">Stillnotdavid</p>
+                                        <p class="inbox-item-text">This theme is awesome!</p>
+                                        <p class="inbox-item-date">13:17 PM</p>
+                                    </div>
+                                </a>
+                                <a href="#">
+                                    <div class="inbox-item">
+                                        <div class="inbox-item-img"><img src="assets/images/users/avatar-4.jpg" class="rounded-circle" alt=""></div>
+                                        <p class="inbox-item-author">Kurafire</p>
+                                        <p class="inbox-item-text">Nice to meet you</p>
+                                        <p class="inbox-item-date">12:20 PM</p>
+                                    </div>
+                                </a>
+                                <a href="#">
+                                    <div class="inbox-item">
+                                        <div class="inbox-item-img"><img src="assets/images/users/avatar-5.jpg" class="rounded-circle" alt=""></div>
+                                        <p class="inbox-item-author">Shahedk</p>
+                                        <p class="inbox-item-text">Hey! there I'm available...</p>
+                                        <p class="inbox-item-date">10:15 AM</p>
+                                    </div>
+                                </a>
+                                <a href="#">
+                                    <div class="inbox-item">
+                                        <div class="inbox-item-img"><img src="assets/images/users/avatar-6.jpg" class="rounded-circle" alt=""></div>
+                                        <p class="inbox-item-author">Adhamdannaway</p>
+                                        <p class="inbox-item-text">This theme is awesome!</p>
+                                        <p class="inbox-item-date">9:56 AM</p>
+                                    </div>
+                                </a>
+                                <a href="#">
+                                    <div class="inbox-item">
+                                        <div class="inbox-item-img"><img src="assets/images/users/avatar-8.jpg" class="rounded-circle" alt=""></div>
+                                        <p class="inbox-item-author">Arashasghari</p>
+                                        <p class="inbox-item-text">Hey! there I'm available...</p>
+                                        <p class="inbox-item-date">10:15 AM</p>
+                                    </div>
+                                </a>
+                                <a href="#">
+                                    <div class="inbox-item">
+                                        <div class="inbox-item-img"><img src="assets/images/users/avatar-9.jpg" class="rounded-circle" alt=""></div>
+                                        <p class="inbox-item-author">Joshaustin</p>
+                                        <p class="inbox-item-text">I've finished it! See you so...</p>
+                                        <p class="inbox-item-date">9:56 AM</p>
+                                    </div>
+                                </a>
+                            </div>
+
+                        </div> <!-- end card -->
+                    </div>
+                    <!-- end col -->
+                    
+                    <div class="col-lg-8">
+                        <div class="card-box">
+                            <h4 class="header-title m-t-0 m-b-30">Recent Users</h4>
+
+                            <div class="table-responsive">
+                                <table class="table table table-hover m-0">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Nombre</th>
+                                            <th>Teléfono</th>
+                                            <th>Dirección</th>
+                                            <th>Correo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for trabajador in trabajadors %}
+                                            <tr>
+                                                <td>
+                                                    {% if trabajador.foto is empty %} 
+                                                        <img src="assets/images/users/avatar-2.jpg" alt="user" class="thumb-sm rounded-circle" />
                                                     {% else %}
-                                                        <tr>
-                                                            <td colspan="9">No hay registros</td>
-                                                        </tr>
-                                                    {% endfor %}    
-                                                </tbody>
-                                            </table>
-    
-                                        </div> <!-- table-responsive -->
-                                    </div> <!-- end card -->
-                                </div>
-                                <!-- end col -->
-                                
-                                <!-- amCharts  V4-->
-    <script src="amcharts4/core.js"></script>
-    <script src="amcharts4/charts.js"></script>
-    <script src="amcharts4/themes/animated.js"></script>
-    <script>
-        am4core.useTheme(am4themes_animated);
-    
-    var chart = am4core.create("chartdiv", am4charts.XYChart);
-    
-    var data = [];
-    var price = 100;
-    var quantity = 1000;  
-    </script>
-    {% for cargaMeta in cargaMetas %}    
-    <script>   
-        data.push({ 
-            date: '{% if cargaMeta.cadena == "Ripley" and cargaMeta.fecha|date("Y-m") == mesAno %} {{ cargaMeta.fecha|date("Y-m-d") }} {% endif %}',   
-            price: 1000, 
-            quantity: '{% if cargaMeta.cadena == "Ripley" and cargaMeta.fecha|date("Y-m") == mesAno %} {{ cargaMeta.meta }} {% endif %}'
-        });
-    </script>
-    {% endfor %}
-    <script>
+                                                        <img src="uploads/image/{{ trabajador.foto.image }}" alt="user" class="thumb-sm rounded-circle" />
+                                                    {% endif %}
+                                                </td>
+                                                <td>{{ trabajador.name }}</td>
+                                                <td>{{ trabajador.phone }}</td>
+                                                <td>{{ trabajador.address }}</td>
+                                                <td>
+                                                    {% if trabajador.tipoTrabajador == 1 %} 
+                                                        Supervisor
+                                                    {% elseif trabajador.tipoTrabajador == 2 %}
+                                                        Vendedor
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                        {% else %}
+                                            <tr>
+                                                <td colspan="9">No hay registros</td>
+                                            </tr>
+                                        {% endfor %}    
+                                    </tbody>
+                                </table>
+
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h4 class="page-header">Draggable Portlets</h4>
+        </div>
+    </div>
+    <!-- end row -->
+    <div class="sortable">
+        <div class="row">
+            <div class="col-xl-4">
+                <div class="portlet card-draggable">
+                    <div class="portlet-heading portlet-default">
+                        <h3 class="portlet-title">
+                            Draggable portlets header
+                        </h3>
+                        <div class="portlet-widgets">
+                            <a href="#" data-toggle="reload"><i class="ion ion-md-refresh"></i></a>
+                            <span class="divider"></span>
+                            <a data-toggle="collapse" href="#drag-portlets1"><i class="ion ion-md-remove"></i></a>
+                            <span class="divider"></span>
+                            <a href="#" data-toggle="remove"><i class="ion ion-md-close"></i></a>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div id="drag-portlets1" class="panel-collapse collapse show">
+                        <div class="portlet-body">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce elementum, nulla vel pellentesque consequat, ante nulla hendrerit arcu, ac tincidunt mauris lacus sed leo. vamus suscipit molestie vestibulum.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-4">
+                <div class="portlet card-draggable">
+                    <div class="portlet-heading portlet-default">
+                        <h3 class="portlet-title">
+                            Draggable portlets header
+                        </h3>
+                        <div class="portlet-widgets">
+                            <a href="#" data-toggle="reload"><i class="ion ion-md-refresh"></i></a>
+                            <span class="divider"></span>
+                            <a data-toggle="collapse" href="#drag-portlets2"><i class="ion ion-md-remove"></i></a>
+                            <span class="divider"></span>
+                            <a href="#" data-toggle="remove"><i class="ion ion-md-close"></i></a>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div id="drag-portlets2" class="panel-collapse collapse show">
+                        <div class="portlet-body">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce elementum, nulla vel pellentesque consequat, ante nulla hendrerit arcu, ac tincidunt mauris lacus sed leo. vamus suscipit molestie vestibulum.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-4">
+                <div class="portlet card-draggable">
+                    <div class="portlet-heading portlet-default">
+                        <h3 class="portlet-title">
+                            Draggable portlets header
+                        </h3>
+                        <div class="portlet-widgets">
+                            <a href="#" data-toggle="reload"><i class="ion ion-md-refresh"></i></a>
+                            <span class="divider"></span>
+                            <a data-toggle="collapse" href="#drag-portlets3"><i class="ion ion-md-remove"></i></a>
+                            <span class="divider"></span>
+                            <a href="#" data-toggle="remove"><i class="ion ion-md-close"></i></a>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div id="drag-portlets3" class="panel-collapse collapse show">
+                        <div class="portlet-body">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce elementum, nulla vel pellentesque consequat, ante nulla hendrerit arcu, ac tincidunt mauris lacus sed leo. vamus suscipit molestie vestibulum.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div> <!-- End row -->
+    </div>
+    <!-- end sortable -->
+
+
+
+                            </div> <!-- table-responsive -->
+                        </div> <!-- end card -->
+                    </div>
+                    <!-- end col -->
         
-        
-    chart.data = data;
-    // the following line makes value axes to be arranged vertically.
-    chart.leftAxesContainer.layout = "vertical"; 
-    
-    // uncomment this line if you want to change order of axes
-    //chart.bottomAxesContainer.reverseOrder = true;
-    
-    var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-    dateAxis.renderer.grid.template.location = 0;
-    dateAxis.renderer.ticks.template.length = 8;
-    dateAxis.renderer.ticks.template.strokeOpacity = 0.1;
-    dateAxis.renderer.grid.template.disabled = true;
-    dateAxis.renderer.ticks.template.disabled = false;
-    dateAxis.renderer.ticks.template.strokeOpacity = 0.2;
-    
-    // these two lines makes the axis to be initially zoomed-in
-    dateAxis.start = 0.7;
-    dateAxis.keepSelection = true;
-    
-    var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-    valueAxis.tooltip.disabled = true;
-    valueAxis.zIndex = 1;
-    valueAxis.renderer.baseGrid.disabled = true;
-    // height of axis
-    valueAxis.height = am4core.percent(65);
-    
-    valueAxis.renderer.gridContainer.background.fill = am4core.color("#000000");
-    valueAxis.renderer.gridContainer.background.fillOpacity = 0.05;
-    valueAxis.renderer.inside = true;
-    valueAxis.renderer.labels.template.verticalCenter = "bottom";
-    valueAxis.renderer.labels.template.padding(2,2,2,2);
-    //valueAxis.renderer.maxLabelPosition = 0.95;
-    valueAxis.renderer.fontSize = "0.8em"
-    
-    var series = chart.series.push(new am4charts.LineSeries());
-    series.dataFields.dateX = "date";
-    series.dataFields.valueY = "price";
-    series.tooltipText = "{valueY.value}";
-    series.name = "Series 1";
-    
-    var valueAxis2 = chart.yAxes.push(new am4charts.ValueAxis());
-    valueAxis2.tooltip.disabled = true;
-    // height of axis
-    valueAxis2.height = am4core.percent(35);
-    valueAxis2.zIndex = 3
-    // this makes gap between panels
-    valueAxis2.marginTop = 30;
-    valueAxis2.renderer.baseGrid.disabled = true;
-    valueAxis2.renderer.inside = true;
-    valueAxis2.renderer.labels.template.verticalCenter = "bottom";
-    valueAxis2.renderer.labels.template.padding(2,2,2,2);
-    //valueAxis.renderer.maxLabelPosition = 0.95;
-    valueAxis2.renderer.fontSize = "0.8em"
-    
-    valueAxis2.renderer.gridContainer.background.fill = am4core.color("#000000");
-    valueAxis2.renderer.gridContainer.background.fillOpacity = 0.05;
-    
-    var series2 = chart.series.push(new am4charts.ColumnSeries());
-    series2.dataFields.dateX = "date";
-    series2.dataFields.valueY = "quantity";
-    series2.yAxis = valueAxis2;
-    series2.tooltipText = "{valueY.value}";
-    series2.name = "Series 2";
-    
-    chart.cursor = new am4charts.XYCursor();
-    chart.cursor.xAxis = dateAxis;
-    
-    var scrollbarX = new am4charts.XYChartScrollbar();
-    scrollbarX.series.push(series);
-    scrollbarX.marginBottom = 20;
-    chart.scrollbarX = scrollbarX;
-    </script>
-                            </div>
-                            <!-- end row -->
-    
-                            
-                        </div> <!-- container -->
-    
-                    </div> <!-- content -->
+<!-- amCharts  V4-->
+<script src="amcharts4/core.js"></script>
+<script src="amcharts4/charts.js"></script>
+<script src="amcharts4/themes/animated.js"></script>
+<script>
+am4core.useTheme(am4themes_animated);
+
+var chart = am4core.create("chartdiv", am4charts.XYChart);
+
+var data = [];
+var price = 100;
+var quantity = 1000;  
+</script>
+{% for cargaMeta in cargaMetas %}    
+<script>   
+data.push({ 
+date: '{% if cargaMeta.cadena == "Ripley" and cargaMeta.fecha|date("Y-m") == mesAno %} {{ cargaMeta.fecha|date("Y-m-d") }} {% endif %}',   
+price: 1000, 
+quantity: '{% if cargaMeta.cadena == "Ripley" and cargaMeta.fecha|date("Y-m") == mesAno %} {{ cargaMeta.meta }} {% endif %}'
+});
+</script>
+{% endfor %}
+<script>
+
+
+chart.data = data;
+// the following line makes value axes to be arranged vertically.
+chart.leftAxesContainer.layout = "vertical"; 
+
+// uncomment this line if you want to change order of axes
+//chart.bottomAxesContainer.reverseOrder = true;
+
+var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+dateAxis.renderer.grid.template.location = 0;
+dateAxis.renderer.ticks.template.length = 8;
+dateAxis.renderer.ticks.template.strokeOpacity = 0.1;
+dateAxis.renderer.grid.template.disabled = true;
+dateAxis.renderer.ticks.template.disabled = false;
+dateAxis.renderer.ticks.template.strokeOpacity = 0.2;
+
+// these two lines makes the axis to be initially zoomed-in
+dateAxis.start = 0.7;
+dateAxis.keepSelection = true;
+
+var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+valueAxis.tooltip.disabled = true;
+valueAxis.zIndex = 1;
+valueAxis.renderer.baseGrid.disabled = true;
+// height of axis
+valueAxis.height = am4core.percent(65);
+
+valueAxis.renderer.gridContainer.background.fill = am4core.color("#000000");
+valueAxis.renderer.gridContainer.background.fillOpacity = 0.05;
+valueAxis.renderer.inside = true;
+valueAxis.renderer.labels.template.verticalCenter = "bottom";
+valueAxis.renderer.labels.template.padding(2,2,2,2);
+//valueAxis.renderer.maxLabelPosition = 0.95;
+valueAxis.renderer.fontSize = "0.8em"
+
+var series = chart.series.push(new am4charts.LineSeries());
+series.dataFields.dateX = "date";
+series.dataFields.valueY = "price";
+series.tooltipText = "{valueY.value}";
+series.name = "Series 1";
+
+var valueAxis2 = chart.yAxes.push(new am4charts.ValueAxis());
+valueAxis2.tooltip.disabled = true;
+// height of axis
+valueAxis2.height = am4core.percent(35);
+valueAxis2.zIndex = 3
+// this makes gap between panels
+valueAxis2.marginTop = 30;
+valueAxis2.renderer.baseGrid.disabled = true;
+valueAxis2.renderer.inside = true;
+valueAxis2.renderer.labels.template.verticalCenter = "bottom";
+valueAxis2.renderer.labels.template.padding(2,2,2,2);
+//valueAxis.renderer.maxLabelPosition = 0.95;
+valueAxis2.renderer.fontSize = "0.8em"
+
+valueAxis2.renderer.gridContainer.background.fill = am4core.color("#000000");
+valueAxis2.renderer.gridContainer.background.fillOpacity = 0.05;
+
+var series2 = chart.series.push(new am4charts.ColumnSeries());
+series2.dataFields.dateX = "date";
+series2.dataFields.valueY = "quantity";
+series2.yAxis = valueAxis2;
+series2.tooltipText = "{valueY.value}";
+series2.name = "Series 2";
+
+chart.cursor = new am4charts.XYCursor();
+chart.cursor.xAxis = dateAxis;
+
+var scrollbarX = new am4charts.XYChartScrollbar();
+scrollbarX.series.push(series);
+scrollbarX.marginBottom = 20;
+chart.scrollbarX = scrollbarX;
+</script>
+                </div>
+                <!-- end row -->
+
+                
+            </div> <!-- container -->
+        </div> <!-- container -->     
+    </div> <!-- content -->
     
                     
     
-                </div>
-
+</div>
+</div>
                 
                 <!-- ============================================================== -->
                 <!-- End Right content here -->
@@ -392,6 +520,21 @@
     <!-- App js -->
     <script src="assets/js/jquery.core.js"></script>
     <script src="assets/js/jquery.app.js"></script>
+
+    <script>
+        $(function () {
+            // sortable
+            $(".sortable").sortable({
+                connectWith: '.sortable',
+                items: '.card-draggable',
+                revert: true,
+                placeholder: 'card-draggable-placeholder',
+                forcePlaceholderSize: true,
+                opacity: 0.77,
+                cursor: 'move'
+            });
+        });
+    </script>
 
     <script>
         $('#reportrange span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));

@@ -95,7 +95,8 @@ class TrabajadorType extends AbstractType
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u')
                     ->andWhere('u.tipo_trabajador = :searchTerm')
-                    ->setParameter('searchTerm', 1);
+                    ->setParameter('searchTerm', 1)
+                    ;
                 },
                 'choice_label' => 'name',
                 'attr' => array(
