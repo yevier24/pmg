@@ -22,9 +22,11 @@ INSERT INTO `tienda` (`empresa`, `zona`, `nombre`, `direccion`, `descripcion`) V
 ( 1, 1, 'Curico', 'Curico', 'Curico'),
 ( 1, 1, 'Marina Arauco', 'Marina Arauco', 'Marina Arauco'),
 ( 1, 1, 'Plaza Oeste', 'Plaza Oeste', 'Plaza Oeste'),
+( 1, 1, 'Arica', 'Arica', 'Arica'),
 ( 1, 1, 'Copiapo', 'Copiapo', 'Copiapo'),
 ( 1, 1, 'Antofagasta', 'Antofagasta', 'Antofagasta'),
 ( 1, 1, 'Mall Concepcion', 'Mall Concepcion', 'Mall Concepcion'),
+( 1, 1, 'Rancagua', 'Rancagua', 'Rancagua'),
 ( 1, 1, 'Plaza Vespucio', 'Plaza Vespucio', 'Plaza Vespucio'),
 ( 1, 1, 'Los Andes', 'Los Andes', 'Los Andes'),
 ( 1, 1, 'Florida Center', 'Florida Center', 'Florida Center'),
@@ -43,6 +45,79 @@ INSERT INTO `tienda` (`empresa`, `zona`, `nombre`, `direccion`, `descripcion`) V
 ( 1, 1, 'Plaza Tobalaba', 'Plaza Tobalaba', 'Plaza Tobalaba'),
 ( 1, 1, 'Los Dominicos', 'Los Dominicos', 'Los Dominicos'),
 ( 1, 1, 'Quilpue', 'Quilpue', 'Quilpue');
+
+
+INSERT INTO `tienda` (`empresa`, `zona`, `nombre`, `direccion`, `descripcion`) VALUES
+( 2, 1, 'Paris Costanera Center', 'Paris Costanera Center', 'Paris Costanera Center'),
+( 2, 1, 'Paris Portal Belloto', 'Paris Portal Belloto', 'Paris Portal Belloto'),
+( 2, 1, 'Paris Marina Arauco', 'Paris Marina Arauco', 'Paris Marina Arauco'),
+( 2, 1, 'Paris Talca', 'Paris Talca', 'Paris Talca'),
+( 2, 1, 'Paris Parque Arauco', 'Paris Parque Arauco', 'Paris Parque Arauco'),
+( 2, 1, 'Paris Copiapo', 'Paris Copiapo', 'Paris Copiapo'),
+( 2, 1, 'Paris Temuco Centro', 'Paris Temuco Centro', 'Paris Temuco Centro'),
+( 2, 1, 'Paris Portal Osorno', 'Paris Portal Osorno', 'Paris Portal Osorno'),
+( 2, 1, 'Paris Arauco Maipu', 'Paris Arauco Maipu', 'Paris Arauco Maipu'),
+( 2, 1, 'Paris Plaza Oeste', 'Paris Plaza Oeste', 'Paris Plaza Oeste'),
+( 2, 1, 'Paris Rancagua', 'Paris Rancagua', 'Paris Rancagua'),
+( 2, 1, 'Paris Ovalle', 'Paris Ovalle', 'Paris Ovalle'),
+( 2, 1, 'Paris Los Angeles', 'Paris Los Angeles', 'Paris Los Angeles'),
+( 2, 1, 'Paris Plaza La Serena', 'Paris Plaza La Serena', 'Paris Plaza La Serena'),
+( 2, 1, 'Paris Plaza Del Trebol', 'Paris Plaza Del Trebol', 'Paris Plaza Del Trebol'),
+( 2, 1, 'Paris El Roble', 'Paris El Roble', 'Paris El Roble'),
+( 2, 1, 'Paris Antofagasta', 'Paris Antofagasta', 'Paris Antofagasta'),
+( 2, 1, 'paris Barros Arana', 'Paris Barros Arana', 'Paris Barros Arana'),
+( 2, 1, 'Paris Arica', 'Paris Arica', 'Paris Arica'),
+( 2, 1, 'Paris Florida Center', 'Paris Florida Center', 'Paris Florida Center'),
+( 2, 1, 'Paris Plaza Vespucio', 'Paris Plaza Vespucio', 'Paris Plaza Vespucio'),
+( 2, 1, 'Paris Curico', 'Paris Curico', 'Paris Curico'),
+( 2, 1, 'Paris Portal Temuco', 'Paris Portal Temuco', 'Paris Portal Temuco'),
+( 2, 1, 'Paris Mall Paseo Estacion', 'Paris Mall Paseo Estacion', 'Paris Mall Paseo Estacion'),
+( 2, 1, 'Paris San Bernardo', 'Paris San Bernardo', 'Paris San Bernardo'),
+( 2, 1, 'Paris Plaza Tobalaba', 'Paris Plaza Tobalaba', 'Paris Plaza Tobalaba'),
+( 2, 1, 'Paris Valparaiso', 'Paris Valparaiso', 'Paris Valparaiso'),
+( 2, 1, 'Paris Portal Nunoa', 'Paris Portal Nunoa', 'Paris Portal Nunoa'),
+( 2, 1, 'Paris Quilin', 'Paris Quilin', 'Paris Quilin'),
+( 2, 1, 'Paris Puerto Montt', 'Paris Puerto Montt', 'Paris Puerto Montt'),
+( 2, 1, 'Paris Iquique', 'Paris Iquique', 'Paris Iquique'),
+( 2, 1, 'Paris Centrorex Rancagua', 'Paris Centrorex Rancagua', 'Paris Centrorex Rancagua'),
+( 2, 1, 'Paris Bandera', 'Paris Bandera', 'Paris Bandera'),
+( 2, 1, 'Paris Coquimbo', 'Paris Coquimbo', 'Paris Coquimbo'),
+( 2, 1, 'Paris Independencia', 'Paris Independencia', 'Paris Independencia'),
+( 2, 1, 'Paris Lyon', 'Paris Lyon', 'Paris Lyon');
+
+
+INSERT INTO `tienda` (`empresa`, `zona`, `nombre`, `direccion`, `descripcion`) VALUES
+( 3, 1, 'Mega Johnson La Serena', 'Mega Johnson La Serena', 'Mega Johnson La Serena'),
+( 3, 1, 'Mega Johnson Maipu', 'Mega Johnson Maipu', 'Mega Johnson Maipu'),
+( 3, 1, 'Mega Johnson Quillota', 'Mega Johnson Quillota', 'Mega Johnson Quillota'),
+( 3, 1, 'Johnson Copiapo', 'Johnson Copiapo', 'Johnson Copiapo'),
+( 3, 1, 'Johnson Chillan', 'Johnson Chillan', 'Johnson Chillan'),
+( 3, 1, 'MEGA JOHNSON VIÑA DEL MAR', 'MEGA JOHNSON VIÑA DEL MAR', 'MEGA JOHNSON VIÑA DEL MAR'),
+( 3, 1, 'Johnson Rancagua', 'Johnson Rancagua', 'Johnson Rancagua'),
+( 3, 1, 'Mega Johnson Puente', 'Mega Johnson Puente', 'Mega Johnson Puente'),
+( 3, 1, 'Mega Johnson San Bernardo', 'Mega Johnson San Bernardo', 'Mega Johnson San Bernardo'),
+( 3, 1, 'Johnson Antofagasta', 'Johnson Antofagasta', 'Johnson Antofagasta'),
+( 3, 1, 'Johnson Arica', 'Johnson Arica', 'Johnson Arica'),
+( 3, 1, 'Johnson Melipilla', 'Johnson Melipilla', 'Johnson Melipilla'),
+( 3, 1, 'Johnson Iquique', 'Johnson Iquique', 'Johnson Iquique'),
+( 3, 1, 'Johnson Talca', 'Johnson Talca', 'Johnson Talca'),
+( 3, 1, 'Mega Johnson Quilin', 'Mega Johnson Quilin', 'Mega Johnson Quilin'),
+( 3, 1, 'Johnson San Felipe', 'Johnson San Felipe', 'Johnson San Felipe'),
+( 3, 1, 'Mega Johnson Florida Center', 'Mega Johnson Florida Center', 'Mega Johnson Florida Center'),
+( 3, 1, 'Johnson Maipu', 'Johnson Maipu', 'Johnson Maipu'),
+( 3, 1, 'Johnson Temuco', 'Johnson Temuco', 'Johnson Temuco'),
+( 3, 1, 'Johnson Concepcion', 'Johnson Concepcion', 'Johnson Concepcion'),
+( 3, 1, 'Mega Johnson Puente Alto', 'Mega Johnson Puente Alto', 'Mega Johnson Puente Alto'),
+( 3, 1, 'Johnson Coronel', 'Johnson Coronel', 'Johnson Coronel'),
+( 3, 1, 'Mega Johnson Mall Plaza Alam', 'Mega Johnson Mall Plaza Alam', 'Mega Johnson Mall Plaza Alam'),
+( 3, 1, 'Johnson Talcahuano', 'Johnson Talcahuano', 'Johnson Talcahuano'),
+( 3, 1, 'Johnson Los Andes', 'Johnson Los Andes', 'Johnson Los Andes'),
+( 3, 1, 'Johnson Linares', 'Johnson Linares', 'Johnson Linares');
+
+
+
+
+
 
 
 

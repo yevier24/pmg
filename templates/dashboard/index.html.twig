@@ -34,60 +34,114 @@
                 </div>
                 <!-- end row -->
                 {% set metaRipley = 0 %} 
+                {% set ventaRipley = 0 %} 
                 {% set metaParis = 0 %}
+                {% set ventaParis = 0 %}
                 {% set metaJohnson = 0 %}
-                {% set mesAno = "now"|date("Y-m") %}
+                {% set ventaJohnson = 0 %}
+                {% set TotalRipley = 0 %}
+                {% set TotalParis = 0 %}
+                {% set TotalJohnson = 0 %}
+                {% set AnoMes = "now"|date("Y-m") %}
+                {% set AnoMesDiaUno = "now"|date("Y-m-01") %}
+                {% set AnoMesDia = "now"|date("Y-m-d") %}
+                {% set MesAno = "now"|date("m-Y") %}
+                {% set DataArray = [] %}
                 
-                {% for cargaMeta in cargaMetas %}  
-                    {% if cargaMeta.cadena == 'Ripley' and cargaMeta.fecha|date("Y-m") == mesAno %} 
-                        {% set metaRipley = metaRipley + cargaMeta.meta %} 
-                    {% elseif cargaMeta.cadena == 'Paris' %} 
+                {% for cargaMeta in cargaMetas %}
+                   {% if cargaMeta.cadena == 'Ripley' and cargaMeta.fecha|date("Y-m-d") >= AnoMesDiaUno and cargaMeta.fecha|date("Y-m-d") <= AnoMesDia %} 
+                        {% set metaRipley = metaRipley + cargaMeta.meta %}
+                        {% set ventaRipley = ventaRipley + cargaMeta.venta %} 
+                        
+                        {# array para JS #}
+                        {#{% set DataArray = DataArray|merge([{ cadena: cargaMeta.cadena.name, tienda: cargaMeta.tienda.nombre, venta: cargaMeta.meta|join }]) %}#}
+
+                    {% elseif cargaMeta.cadena == 'Paris' and cargaMeta.fecha|date("Y-m-d") >= AnoMesDiaUno and cargaMeta.fecha|date("Y-m-d") <= AnoMesDia %} 
                         {% set metaParis = metaParis + cargaMeta.meta %}
-                    {% elseif cargaMeta.cadena == 'Johnson' %} 
+                        {% set ventaParis = ventaParis + cargaMeta.venta %}
+                    {% elseif cargaMeta.cadena == 'Johnson' and cargaMeta.fecha|date("Y-m-d") >= AnoMesDiaUno and cargaMeta.fecha|date("Y-m-d") <= AnoMesDia %} 
                         {% set metaJohnson = metaJohnson + cargaMeta.meta %}
+                        {% set ventaJohnson = ventaJohnson + cargaMeta.venta %}
                     {% endif %}
                 {% endfor %}
+
+                {% if ventaRipley != 0 and metaRipley != 0 %}
+                    {% set TotalRipley = ventaRipley / metaRipley * 100 %}
+                {% endif %}
+                {% if ventaParis != 0 and metaParis != 0 %}
+                    {% set TotalParis = ventaParis / metaParis * 100 %}
+                {% endif %}
+                {% if ventaJohnson != 0 and metaJohnson != 0 %}
+                    {% set TotalJohnson = ventaJohnson / metaJohnson * 100 %}
+                {% endif %}
+
+                {% if TotalRipley >= 100 %} 
+                    {% set IconoColorRipley = '<img class="widget-two-icon icon-colored" src="assets/images/icons/bullish.svg" title="bullish.svg" alt="colored-icons">' %}
+                    {% set BoxColorRipley = 'success' %}
+                {% elseif TotalRipley >= 80 and TotalRipley <= 99 %}
+                    {% set IconoColorRipley = '<img class="widget-two-icon icon-colored" src="assets/images/icons/neutral_trading.svg" title="neutral_trading.svg" alt="colored-icons">' %}
+                    {% set BoxColorRipley = 'warning' %}
+                {% elseif TotalRipley >= 0 and TotalRipley <= 79 %}  
+                    {% set IconoColorRipley = '<img class="widget-two-icon icon-colored" src="assets/images/icons/bearish.svg" title="bearish.svg" alt="colored-icons">' %}
+                    {% set BoxColorRipley = 'danger' %}
+                {% endif %}
+                {% if TotalParis >= 100 %} 
+                    {% set IconoColorParis = '<img class="widget-two-icon icon-colored" src="assets/images/icons/bullish.svg" title="bullish.svg" alt="colored-icons">' %}
+                    {% set BoxColorParis = 'success' %}
+                {% elseif TotalParis >= 80 and TotalParis <= 99 %}
+                    {% set IconoColorParis = '<img class="widget-two-icon icon-colored" src="assets/images/icons/neutral_trading.svg" title="neutral_trading.svg" alt="colored-icons">' %}
+                    {% set BoxColorParis = 'warning' %}
+                {% elseif TotalParis >= 0 and TotalParis <= 79 %}  
+                    {% set IconoColorParis = '<img class="widget-two-icon icon-colored" src="assets/images/icons/bearish.svg" title="bearish.svg" alt="colored-icons">' %}
+                    {% set BoxColorParis  = 'danger' %}
+                {% endif %}
+                {% if TotalJohnson >= 100 %} 
+                    {% set IconoColorJohnson = '<img class="widget-two-icon icon-colored" src="assets/images/icons/bullish.svg" title="bullish.svg" alt="colored-icons">' %}
+                    {% set BoxColorJohnson = 'success' %}
+                {% elseif TotalJohnson >= 80 and TotalJohnson <= 99 %}
+                    {% set IconoColorJohnson = '<img class="widget-two-icon icon-colored" src="assets/images/icons/neutral_trading.svg" title="neutral_trading.svg" alt="colored-icons">' %}
+                    {% set BoxColorJohnson = 'warning' %}
+                {% elseif TotalJohnson >= 0 and TotalJohnson <= 79 %}  
+                    {% set IconoColorJohnson = '<img class="widget-two-icon icon-colored" src="assets/images/icons/bearish.svg" title="bearish.svg" alt="colored-icons">' %}
+                    {% set BoxColorJohnson = 'danger' %}
+                {% endif %}
                 <div class="row">
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card-box widget-box-two widget-two-primary">
-                            <i class="mdi mdi-chart-areaspline widget-two-icon"></i>
+                    <div class="col-xl-4 col-md-6">
+                        <div class="card-box widget-box-two widget-two-{{BoxColorRipley}}">
+                                {{ IconoColorRipley|raw }}
                             <div class="wigdet-two-content">
-                                <p class="m-0 text-uppercase font-600 font-secondary text-overflow" title="Statistics">Ripley {{mesAno}}</p>
-                                <h2><span data-plugin="counterup">100000</span> <small><i class="mdi mdi-arrow-up text-success"></i></small></h2>
-                                <p class="text-muted m-0"><b>Meta:</b> {{ metaRipley|number_format(2, ',', '.') }}</p>
+                                <p class="m-0 text-uppercase font-600 font-secondary text-overflow" title="Statistics">Ripley {{MesAno}}</p>
+                                <b>Venta:</b> 
+                                <h2><span data-plugin="">{{ ventaRipley|number_format(0, ',', '.') }}</span> <small> </small></h2>
+                                <p class="text-muted m-0"><b>Meta:</b> {{ metaRipley|number_format(2, ',', '.') }} <br> del {{AnoMesDiaUno}} al {{AnoMesDia}}</p>
+                                <p class="text-muted m-0"><b>Cumplimiento:</b> {{TotalRipley|number_format(0, ',', '.')}}%</p>
                             </div>
                         </div>
                     </div><!-- end col -->
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card-box widget-box-two widget-two-warning">
-                            <i class="mdi mdi-layers widget-two-icon"></i>
+                    <div class="col-xl-4 col-md-6">
+                        <div class="card-box widget-box-two widget-two-{{BoxColorParis}}">
+                                {{ IconoColorParis|raw }}
                             <div class="wigdet-two-content">
-                                <p class="m-0 text-uppercase font-600 font-secondary text-overflow" title="User This Month">Paris</p>
-                                <h2><span data-plugin="counterup">52410 </span> <small><i class="mdi mdi-arrow-up text-success"></i></small></h2>
-                                <p class="text-muted m-0"><b>Meta:</b> {{ metaParis|number_format(2, ',', '.') }}</p>
+                                <p class="m-0 text-uppercase font-600 font-secondary text-overflow" title="User This Month">Paris {{MesAno}}</p>
+                                <b>Venta:</b>
+                                <h2><span data-plugin="">{{ ventaParis|number_format(0, ',', '.') }} </span> <small>  </small></h2>
+                                <p class="text-muted m-0"><b>Meta:</b> {{ metaParis|number_format(2, ',', '.') }} <br> del {{AnoMesDiaUno}} al {{AnoMesDia}}</p>
+                                <p class="text-muted m-0"><b>Cumplimiento:</b> {{TotalParis|number_format(0, ',', '.')}}%</p>
                             </div>
                         </div>
                     </div><!-- end col -->
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card-box widget-box-two widget-two-danger">
-                            <i class="mdi mdi-access-point-network widget-two-icon"></i>
+                    <div class="col-xl-4 col-md-6">
+                        <div class="card-box widget-box-two widget-two-{{BoxColorJohnson}}">
+                                {{ IconoColorJohnson|raw }}
                             <div class="wigdet-two-content">
-                                <p class="m-0 text-uppercase font-600 font-secondary text-overflow" title="Statistics">Johnson</p>
-                                <h2><span data-plugin="counterup">6352</span> <small><i class="mdi mdi-arrow-up text-success"></i></small></h2>
-                                <p class="text-muted m-0"><b>Meta:</b> {{ metaJohnson|number_format(2, ',', '.') }}</p>
+                                <p class="m-0 text-uppercase font-600 font-secondary text-overflow" title="Statistics">Johnson {{MesAno}}</p>
+                                <b>Venta:</b>
+                                <h2><span data-plugin="">{{ ventaJohnson|number_format(0, ',', '.') }}</span> <small>  </small></h2>
+                                <p class="text-muted m-0"><b>Meta:</b> {{ metaJohnson|number_format(2, ',', '.') }} <br> del {{AnoMesDiaUno}} al {{AnoMesDia}}</p>
+                                <p class="text-muted m-0"><b>Cumplimiento:</b> {{TotalJohnson|number_format(0, ',', '.')}}%</p>
                             </div>
                         </div>
-                    </div><!-- end col 
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card-box widget-box-two widget-two-success">
-                            <i class="mdi mdi-account-convert widget-two-icon"></i>
-                            <div class="wigdet-two-content">
-                                <p class="m-0 text-uppercase font-600 font-secondary text-overflow" title="User Today">User Today</p>
-                                <h2><span data-plugin="counterup">895 </span> <small><i class="mdi mdi-arrow-down text-danger"></i></small></h2>
-                                <p class="text-muted m-0"><b>Last:</b> 1250</p>
-                            </div>
-                        </div>
-                    </div>--><!-- end col -->
+                    </div>
                 </div>
                 <!-- end row -->
                 <!--<div class="row">
@@ -115,49 +169,292 @@
                         </div>
                     </div>
                 </div>
-                    end row -->  
+                    end row-->
                     
-                <div class="property-card property-horizontal bg-white">
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <div class="property-image" style="background: url('assets/images/properties/1.jpg') center center / cover no-repeat;">
-                                <span class="property-label badge badge-danger">For Sale</span>
-                            </div>
-                        </div>
-                        <!-- /col 4 -->
-                        <div class="col-sm-8">
-                            <div class="property-content">
-                                <div class="listingInfo">
-                                    <div class="">
-                                        <h4 class="text-success m-t-0">$390,000 - $430,000</h4>
-                                    </div>
-                                    <div class="">
-                                        <h4><a href="#" class="text-dark">4BHK Alexander Court,New York</a></h4>
-                                        <p class="text-muted"><i class="mdi mdi-map-marker-radius m-r-5"></i>245 E 20th St, New York, NY 201609</p>
+<!-- amCharts  V4-->
+<script src="amcharts4/core.js"></script>
+<script src="amcharts4/charts.js"></script>
+<script src="amcharts4/themes/animated.js"></script>
+<!-- Chart code -->
+{#{ dump(DataArray|json_encode|raw ) }#}
+<script>
+        var dataRipley = [];
+        var dataParis = [];
+        var dataJohnson = [];
+        var ventaRipley = 0;
+        var ventaParis = 0;
+        var ventaJohnson = 0;
+        var data0 ="{% for tienda in tiendas %}";
+        var data0 ="{% set sumaRipley = 0 %}";
+        var data0 ="{% set sumaParis = 0 %}";
+        var data0 ="{% set sumaJohnson = 0 %}";
+        var cadena = "{{tienda.empresa.name}}"; 
+        var tienda = "{{tienda.nombre}}";
+            var data1 = "{% for cargaMeta in cargaMetas %}";
+                var data11 = "{% if tienda.empresa.name == 'Ripley' and tienda.nombre == cargaMeta.tienda.nombre and cargaMeta.fecha|date('Y-m-d') >= AnoMesDiaUno and cargaMeta.fecha|date('Y-m-d') <= AnoMesDia %} {% set sumaRipley = sumaRipley + cargaMeta.meta %} {% endif %}";
+                var data11 = "{% if tienda.empresa.name == 'Paris' and tienda.nombre == cargaMeta.tienda.nombre and cargaMeta.fecha|date('Y-m-d') >= AnoMesDiaUno and cargaMeta.fecha|date('Y-m-d') <= AnoMesDia %} {% set sumaParis = sumaParis + cargaMeta.meta %} {% endif %}";
+                var data11 = "{% if tienda.empresa.name == 'Johnson' and tienda.nombre == cargaMeta.tienda.nombre and cargaMeta.fecha|date('Y-m-d') >= AnoMesDiaUno and cargaMeta.fecha|date('Y-m-d') <= AnoMesDia %} {% set sumaJohnson = sumaJohnson + cargaMeta.meta %} {% endif %}";
+            var data1 = "{% endfor %}";
+            ventaRipley = "{{ sumaRipley }}";
+            ventaParis = "{{ sumaParis }}";
+            ventaJohnson = "{{ sumaJohnson }}";
+            var data1 = "{% if tienda.empresa.name == 'Ripley' %}";
+                        dataRipley.push({ 
+                            cadena: cadena,
+                            tienda: tienda,
+                            venta: ventaRipley
+                        });
+                ventaRipley = 0;
+            var data1 = "{% endif %}";
+            var data1 = "{% if tienda.empresa.name == 'Paris' %}";
+                        dataParis.push({ 
+                            cadena: cadena,
+                            tienda: tienda,
+                            venta: ventaParis
+                        });
+                ventaParis = 0;
+            var data1 = "{% endif %}";
+            var data1 = "{% if tienda.empresa.name == 'Johnson' %}";
+                        dataJohnson.push({ 
+                            cadena: cadena,
+                            tienda: tienda,
+                            venta: ventaJohnson
+                        });
+                ventaJohnson = 0;
+            var data1 = "{% endif %}";        
+        var data0 ="{% endfor %}";
 
-                                        <p class="font-13 text-muted m-b-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit Aliquam gravida magna et fringilla convallis. Pellentesque habitant morb</p>
-                                    </div>
-                                </div>
-                                <div class="property-action">
-                                    <a href="#" target="new_blank" data-toggle="tooltip" data-placement="top" title="" data-original-title="280 square feet"><i class="mdi mdi-view-grid"></i><span>280</span></a>
-                                    <a href="#" target="new_blank" data-toggle="tooltip" data-placement="top" title="" data-original-title="4 Bedroom House"><i class="mdi mdi-hotel"></i><span>4</span></a>
-                                    <a href="#" target="new_blank" data-toggle="tooltip" data-placement="top" title="" data-original-title="2 Parking space"><i class="mdi mdi-car"></i><span>2</span></a>
-                                    <a href="#" target="new_blank" data-toggle="tooltip" data-placement="top" title="" data-original-title="24h Electricity"><i class="mdi mdi-battery-charging-80"></i><span> 24H</span></a>
-                                    <div class="float-right">
-                                        <a href="#" class="btn btn-light"><i class="far fa-heart"></i><span>Save</span></a>
-                                    </div>
-                                </div>
-                                <!-- end. Card actions -->
-                            </div>
-                        </div>
-                        <!-- /col 8 -->
-                    </div>
-                    <!-- /inner row -->
-                </div>
-                <!-- End property item -->
+//#################################################Ripley################################################################
+        //var DataArray = '{{DataArray|json_encode|raw}}';
+        am4core.ready(function() {
+        // Themes begin
+        am4core.useTheme(am4themes_animated);
+        // Themes end
+        // Create chart instance
+        var chart = am4core.create("chartdivRipley", am4charts.XYChart);
+                
+        chart.data = dataRipley;
+
+        // Create axes
+        var yAxis = chart.yAxes.push(new am4charts.CategoryAxis());
+        yAxis.dataFields.category = "tienda";
+        yAxis.renderer.grid.template.location = 0;
+        yAxis.renderer.labels.template.fontSize = 10;
+        yAxis.renderer.minGridDistance = 10;
+        
+        var xAxis = chart.xAxes.push(new am4charts.ValueAxis());
+        
+        // Create series
+        var series = chart.series.push(new am4charts.ColumnSeries());
+        series.dataFields.valueX = "venta";
+        series.dataFields.categoryY = "tienda";
+        series.dataFields.X = "cadena";
+        series.dataFields.Y = "CAMBIARPORDATOS"; /// <<<<<------ CAMBIARPORDATOS
+        // \n <<<--- es el <br> del tooltipText
+        series.columns.template.tooltipText = "{cadena} {CAMBIARPORDATOS}\n{categoryY}: [bold]{valueX}[/]";
+        series.columns.template.strokeWidth = 1;
+        series.columns.template.adapter.add("fill", function(fill, target) {
+          if (target.dataItem) {
+            switch(target.dataItem.dataContext.cadena) {
+              case "Ripley":
+                return chart.colors.getIndex(1);
+                break;
+            }
+          }
+          return fill;
+        });
+        
+        // Add ranges
+        function addRange(label, start, end, color) {
+          var range = yAxis.axisRanges.create();
+          range.category = start;
+          range.endCategory = end;
+          range.label.text = label;
+          range.label.disabled = false;
+          range.label.fill = color;
+          range.label.location = 0;
+          range.label.dx = -180;
+          range.label.dy = 6;
+          range.label.fontWeight = "bold";
+          range.label.fontSize = 12;
+          range.label.horizontalCenter = "left"
+          range.label.inside = true;
+          
+          range.grid.stroke = am4core.color("#396478");
+          range.grid.strokeOpacity = 1;
+          range.tick.length = 200;
+          range.tick.disabled = false;
+          range.tick.strokeOpacity = 0.6;
+          range.tick.stroke = am4core.color("#396478");
+          range.tick.location = 0;
+          
+          range.locations.category = 1;
+        }
+        
+        //addRange("Global", "Texas", "North Dakota", chart.colors.getIndex(0));
+        addRange("Ripley", "Quilpue", "West Virginia", chart.colors.getIndex(1));
+        //addRange("Paris", "Paris Lyon", "South Carolina", chart.colors.getIndex(2));
+        //addRange("Johnson", "Johnson Linares", "Wyoming", chart.colors.getIndex(3));
+                
+        chart.cursor = new am4charts.XYCursor();
+        
+        }); // end am4core.ready()
+//#################################################Ripley################################################################
 
 
-                <div class="row"><div id="chartdiv"></div>
+//#################################################Paris################################################################
+                //var DataArray = '{{DataArray|json_encode|raw}}';
+                am4core.ready(function() {
+                // Themes begin
+                am4core.useTheme(am4themes_animated);
+                // Themes end
+                // Create chart instance
+                var chart = am4core.create("chartdivParis", am4charts.XYChart);
+                        
+                chart.data = dataParis;
+        
+                // Create axes
+                var yAxis = chart.yAxes.push(new am4charts.CategoryAxis());
+                yAxis.dataFields.category = "tienda";
+                yAxis.renderer.grid.template.location = 0;
+                yAxis.renderer.labels.template.fontSize = 10;
+                yAxis.renderer.minGridDistance = 10;
+                var xAxis = chart.xAxes.push(new am4charts.ValueAxis());
+                // Create series
+                var series = chart.series.push(new am4charts.ColumnSeries());
+                series.dataFields.valueX = "venta";
+                series.dataFields.categoryY = "tienda";
+                series.dataFields.X = "cadena";
+                series.dataFields.Y = "CAMBIARPORDATOS"; /// <<<<<------ CAMBIARPORDATOS
+                // \n <<<--- es el <br> del tooltipText
+                series.columns.template.tooltipText = "{cadena} {CAMBIARPORDATOS}\n{categoryY}: [bold]{valueX}[/]";
+                series.columns.template.strokeWidth = 1;
+                series.columns.template.adapter.add("fill", function(fill, target) {
+                  if (target.dataItem) {
+                    switch(target.dataItem.dataContext.cadena) {
+                      case "Paris":
+                        return chart.colors.getIndex(2);
+                        break;
+                    }
+                  }
+                  return fill;
+                });
+                
+                // Add ranges
+                function addRange(label, start, end, color) {
+                  var range = yAxis.axisRanges.create();
+                  range.category = start;
+                  range.endCategory = end;
+                  range.label.text = label;
+                  range.label.disabled = false;
+                  range.label.fill = color;
+                  range.label.location = 0;
+                  range.label.dx = -180;
+                  range.label.dy = 6;
+                  range.label.fontWeight = "bold";
+                  range.label.fontSize = 12;
+                  range.label.horizontalCenter = "left"
+                  range.label.inside = true;
+                  
+                  range.grid.stroke = am4core.color("#396478");
+                  range.grid.strokeOpacity = 1;
+                  range.tick.length = 200;
+                  range.tick.disabled = false;
+                  range.tick.strokeOpacity = 0.6;
+                  range.tick.stroke = am4core.color("#396478");
+                  range.tick.location = 0;
+                  
+                  range.locations.category = 1;
+                }
+                //addRange("Global", "Texas", "North Dakota", chart.colors.getIndex(0));
+                //addRange("Ripley", "Quilpue", "West Virginia", chart.colors.getIndex(1));
+                addRange("Paris", "Paris Lyon", "South Carolina", chart.colors.getIndex(2));
+                //addRange("Johnson", "Johnson Linares", "Wyoming", chart.colors.getIndex(3));
+                chart.cursor = new am4charts.XYCursor();
+                }); // end am4core.ready()
+//#################################################Paris################################################################
+
+
+
+//#################################################Johnson################################################################
+                //var DataArray = '{{DataArray|json_encode|raw}}';
+                am4core.ready(function() {
+                    // Themes begin
+                    am4core.useTheme(am4themes_animated);
+                    // Themes end
+                    // Create chart instance
+                    var chart = am4core.create("chartdivJohnson", am4charts.XYChart);
+                            
+                    chart.data = dataJohnson;
+            
+                    // Create axes
+                    var yAxis = chart.yAxes.push(new am4charts.CategoryAxis());
+                    yAxis.dataFields.category = "tienda";
+                    yAxis.renderer.grid.template.location = 0;
+                    yAxis.renderer.labels.template.fontSize = 10;
+                    yAxis.renderer.minGridDistance = 10;
+                    var xAxis = chart.xAxes.push(new am4charts.ValueAxis());
+                    // Create series
+                    var series = chart.series.push(new am4charts.ColumnSeries());
+                    series.dataFields.valueX = "venta";
+                    series.dataFields.categoryY = "tienda";
+                    series.dataFields.X = "cadena";
+                    series.dataFields.Y = "CAMBIARPORDATOS"; /// <<<<<------ CAMBIARPORDATOS
+                    // \n <<<--- es el <br> del tooltipText
+                    series.columns.template.tooltipText = "{cadena} {CAMBIARPORDATOS}\n{categoryY}: [bold]{valueX}[/]";
+                    series.columns.template.strokeWidth = 1;
+                    series.columns.template.adapter.add("fill", function(fill, target) {
+                      if (target.dataItem) {
+                        switch(target.dataItem.dataContext.cadena) {
+                          case "Paris":
+                            return chart.colors.getIndex(2);
+                            break;
+                        }
+                      }
+                      return fill;
+                    });
+                    
+                    // Add ranges
+                    function addRange(label, start, end, color) {
+                      var range = yAxis.axisRanges.create();
+                      range.category = start;
+                      range.endCategory = end;
+                      range.label.text = label;
+                      range.label.disabled = false;
+                      range.label.fill = color;
+                      range.label.location = 0;
+                      range.label.dx = -180;
+                      range.label.dy = 6;
+                      range.label.fontWeight = "bold";
+                      range.label.fontSize = 12;
+                      range.label.horizontalCenter = "left"
+                      range.label.inside = true;
+                      
+                      range.grid.stroke = am4core.color("#396478");
+                      range.grid.strokeOpacity = 1;
+                      range.tick.length = 200;
+                      range.tick.disabled = false;
+                      range.tick.strokeOpacity = 0.6;
+                      range.tick.stroke = am4core.color("#396478");
+                      range.tick.location = 0;
+                      
+                      range.locations.category = 1;
+                    }
+                    //addRange("Global", "Texas", "North Dakota", chart.colors.getIndex(0));
+                    //addRange("Ripley", "Quilpue", "West Virginia", chart.colors.getIndex(1));
+                    addRange("Paris", "Paris Lyon", "South Carolina", chart.colors.getIndex(2));
+                    //addRange("Johnson", "Johnson Linares", "Wyoming", chart.colors.getIndex(3));
+                    chart.cursor = new am4charts.XYCursor();
+                    }); // end am4core.ready()
+//#################################################Johnson################################################################
+                </script>       
+
+        
+        <!-- HTML -->
+                <div class="row">
+                    <div id="chartdivRipley"></div>
+                    <div id="chartdivParis"></div>
+                    <div id="chartdivJohnson"></div>
                     <div class="col-lg-4">
                         <div class="card-box">
                             <h4 class="header-title m-t-0 m-b-30">Messages</h4>
@@ -277,191 +574,10 @@
                                 </table>
 
 
-    <div class="row">
-        <div class="col-sm-12">
-            <h4 class="page-header">Draggable Portlets</h4>
-        </div>
-    </div>
-    <!-- end row -->
-    <div class="sortable">
-        <div class="row">
-            <div class="col-xl-4">
-                <div class="portlet card-draggable">
-                    <div class="portlet-heading portlet-default">
-                        <h3 class="portlet-title">
-                            Draggable portlets header
-                        </h3>
-                        <div class="portlet-widgets">
-                            <a href="#" data-toggle="reload"><i class="ion ion-md-refresh"></i></a>
-                            <span class="divider"></span>
-                            <a data-toggle="collapse" href="#drag-portlets1"><i class="ion ion-md-remove"></i></a>
-                            <span class="divider"></span>
-                            <a href="#" data-toggle="remove"><i class="ion ion-md-close"></i></a>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div id="drag-portlets1" class="panel-collapse collapse show">
-                        <div class="portlet-body">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce elementum, nulla vel pellentesque consequat, ante nulla hendrerit arcu, ac tincidunt mauris lacus sed leo. vamus suscipit molestie vestibulum.
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-4">
-                <div class="portlet card-draggable">
-                    <div class="portlet-heading portlet-default">
-                        <h3 class="portlet-title">
-                            Draggable portlets header
-                        </h3>
-                        <div class="portlet-widgets">
-                            <a href="#" data-toggle="reload"><i class="ion ion-md-refresh"></i></a>
-                            <span class="divider"></span>
-                            <a data-toggle="collapse" href="#drag-portlets2"><i class="ion ion-md-remove"></i></a>
-                            <span class="divider"></span>
-                            <a href="#" data-toggle="remove"><i class="ion ion-md-close"></i></a>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div id="drag-portlets2" class="panel-collapse collapse show">
-                        <div class="portlet-body">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce elementum, nulla vel pellentesque consequat, ante nulla hendrerit arcu, ac tincidunt mauris lacus sed leo. vamus suscipit molestie vestibulum.
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-4">
-                <div class="portlet card-draggable">
-                    <div class="portlet-heading portlet-default">
-                        <h3 class="portlet-title">
-                            Draggable portlets header
-                        </h3>
-                        <div class="portlet-widgets">
-                            <a href="#" data-toggle="reload"><i class="ion ion-md-refresh"></i></a>
-                            <span class="divider"></span>
-                            <a data-toggle="collapse" href="#drag-portlets3"><i class="ion ion-md-remove"></i></a>
-                            <span class="divider"></span>
-                            <a href="#" data-toggle="remove"><i class="ion ion-md-close"></i></a>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div id="drag-portlets3" class="panel-collapse collapse show">
-                        <div class="portlet-body">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce elementum, nulla vel pellentesque consequat, ante nulla hendrerit arcu, ac tincidunt mauris lacus sed leo. vamus suscipit molestie vestibulum.
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div> <!-- End row -->
-    </div>
-    <!-- end sortable -->
-
-
-
                             </div> <!-- table-responsive -->
                         </div> <!-- end card -->
                     </div>
                     <!-- end col -->
-        
-<!-- amCharts  V4-->
-<script src="amcharts4/core.js"></script>
-<script src="amcharts4/charts.js"></script>
-<script src="amcharts4/themes/animated.js"></script>
-<script>
-am4core.useTheme(am4themes_animated);
-
-var chart = am4core.create("chartdiv", am4charts.XYChart);
-
-var data = [];
-var price = 100;
-var quantity = 1000;  
-</script>
-{% for cargaMeta in cargaMetas %}    
-<script>   
-data.push({ 
-date: '{% if cargaMeta.cadena == "Ripley" and cargaMeta.fecha|date("Y-m") == mesAno %} {{ cargaMeta.fecha|date("Y-m-d") }} {% endif %}',   
-price: 1000, 
-quantity: '{% if cargaMeta.cadena == "Ripley" and cargaMeta.fecha|date("Y-m") == mesAno %} {{ cargaMeta.meta }} {% endif %}'
-});
-</script>
-{% endfor %}
-<script>
-
-
-chart.data = data;
-// the following line makes value axes to be arranged vertically.
-chart.leftAxesContainer.layout = "vertical"; 
-
-// uncomment this line if you want to change order of axes
-//chart.bottomAxesContainer.reverseOrder = true;
-
-var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-dateAxis.renderer.grid.template.location = 0;
-dateAxis.renderer.ticks.template.length = 8;
-dateAxis.renderer.ticks.template.strokeOpacity = 0.1;
-dateAxis.renderer.grid.template.disabled = true;
-dateAxis.renderer.ticks.template.disabled = false;
-dateAxis.renderer.ticks.template.strokeOpacity = 0.2;
-
-// these two lines makes the axis to be initially zoomed-in
-dateAxis.start = 0.7;
-dateAxis.keepSelection = true;
-
-var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-valueAxis.tooltip.disabled = true;
-valueAxis.zIndex = 1;
-valueAxis.renderer.baseGrid.disabled = true;
-// height of axis
-valueAxis.height = am4core.percent(65);
-
-valueAxis.renderer.gridContainer.background.fill = am4core.color("#000000");
-valueAxis.renderer.gridContainer.background.fillOpacity = 0.05;
-valueAxis.renderer.inside = true;
-valueAxis.renderer.labels.template.verticalCenter = "bottom";
-valueAxis.renderer.labels.template.padding(2,2,2,2);
-//valueAxis.renderer.maxLabelPosition = 0.95;
-valueAxis.renderer.fontSize = "0.8em"
-
-var series = chart.series.push(new am4charts.LineSeries());
-series.dataFields.dateX = "date";
-series.dataFields.valueY = "price";
-series.tooltipText = "{valueY.value}";
-series.name = "Series 1";
-
-var valueAxis2 = chart.yAxes.push(new am4charts.ValueAxis());
-valueAxis2.tooltip.disabled = true;
-// height of axis
-valueAxis2.height = am4core.percent(35);
-valueAxis2.zIndex = 3
-// this makes gap between panels
-valueAxis2.marginTop = 30;
-valueAxis2.renderer.baseGrid.disabled = true;
-valueAxis2.renderer.inside = true;
-valueAxis2.renderer.labels.template.verticalCenter = "bottom";
-valueAxis2.renderer.labels.template.padding(2,2,2,2);
-//valueAxis.renderer.maxLabelPosition = 0.95;
-valueAxis2.renderer.fontSize = "0.8em"
-
-valueAxis2.renderer.gridContainer.background.fill = am4core.color("#000000");
-valueAxis2.renderer.gridContainer.background.fillOpacity = 0.05;
-
-var series2 = chart.series.push(new am4charts.ColumnSeries());
-series2.dataFields.dateX = "date";
-series2.dataFields.valueY = "quantity";
-series2.yAxis = valueAxis2;
-series2.tooltipText = "{valueY.value}";
-series2.name = "Series 2";
-
-chart.cursor = new am4charts.XYCursor();
-chart.cursor.xAxis = dateAxis;
-
-var scrollbarX = new am4charts.XYChartScrollbar();
-scrollbarX.series.push(series);
-scrollbarX.marginBottom = 20;
-chart.scrollbarX = scrollbarX;
-</script>
                 </div>
                 <!-- end row -->
 
@@ -482,6 +598,7 @@ chart.scrollbarX = scrollbarX;
             
 {% endblock %}
 {% block javascripts %}
+{{ parent() }}
     <script>
         var resizefunc = [];
     </script>       
@@ -512,14 +629,13 @@ chart.scrollbarX = scrollbarX;
 
     <script src="../plugins/moment/moment.js"></script>
     <script src="../plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
-
-
+        
     <!-- Dashboard init -->
     <script src="assets/pages/jquery.dashboard_2.js"></script>
 
     <!-- App js -->
     <script src="assets/js/jquery.core.js"></script>
-    <script src="assets/js/jquery.app.js"></script>
+    <script src="assets/js/jquery.app.js"></script>   
 
     <script>
         $(function () {
@@ -534,7 +650,7 @@ chart.scrollbarX = scrollbarX;
                 cursor: 'move'
             });
         });
-    </script>
+       </script>
 
     <script>
         $('#reportrange span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
@@ -581,6 +697,5 @@ chart.scrollbarX = scrollbarX;
             $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
         });
     </script>
-
 {% endblock %}
 

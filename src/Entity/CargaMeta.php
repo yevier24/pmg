@@ -48,6 +48,11 @@ class CargaMeta
      */
     private $meta;
 
+    /**
+     * @ORM\Column(type="decimal", precision=11, scale=2, nullable=true)
+     */
+    private $venta;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -121,6 +126,18 @@ class CargaMeta
     public function setMeta($meta)
     {
         $this->meta = $meta;
+
+        return $this;
+    }
+
+    public function getVenta(): ?string
+    {
+        return $this->venta;
+    }
+
+    public function setVenta(?string $venta): self
+    {
+        $this->venta = $venta;
 
         return $this;
     }
