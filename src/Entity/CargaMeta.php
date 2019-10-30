@@ -53,6 +53,22 @@ class CargaMeta
      */
     private $venta;
 
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $fecha_i;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $fecha_u;
+
+    function __construct()
+    {
+        $this->fecha_i = new \DateTime();
+        $this->fecha_u = new \DateTime();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -138,6 +154,30 @@ class CargaMeta
     public function setVenta(?string $venta): self
     {
         $this->venta = $venta;
+
+        return $this;
+    }
+
+    public function getFechaI(): ?\DateTimeInterface
+    {
+        return $this->fecha_i;
+    }
+
+    public function setFechaI(\DateTimeInterface $fecha_i): self
+    {
+        $this->fecha_i = $fecha_i;
+
+        return $this;
+    }
+
+    public function getFechaU(): ?\DateTimeInterface
+    {
+        return $this->fecha_u;
+    }
+
+    public function setFechaU(\DateTimeInterface $fecha_u): self
+    {
+        $this->fecha_u = $fecha_u;
 
         return $this;
     }
