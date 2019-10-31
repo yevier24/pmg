@@ -13,6 +13,9 @@ use App\Repository\EmpresaRepository;
 
 use App\Repository\TiendaRepository;
 
+use App\Entity\Gastos;
+use App\Repository\GastosRepository;
+
 use PHPExcel;
 use PHPExcel_IOFactory;
 use PHPExcel_Shared_Date;
@@ -206,7 +209,7 @@ class DashboardController extends AbstractController
     /**
      * @Route("/excelGastos", name="app_xls_gastos")
      */
-    public function excelGastos(CargaMetaRepository $cargaMetaRepository, EmpresaRepository $empresaRepository, TiendaRepository $tiendaRepository)
+    public function excelGastos(GastosRepository $GastosRepository, EmpresaRepository $empresaRepository, TiendaRepository $tiendaRepository)
     {
 
         // sin limite de tiempo para la carga de datos
@@ -247,7 +250,8 @@ class DashboardController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $lastColumn = $worksheet->getHighestColumn();
         $lastColumn++;
-        
+        $contador11 = 0;
+        $MaxRow++;
         for($row = 5; $row != $MaxRow; $row++) 
         {   
             for($column = 'A'; $column != $lastColumn; $column++)
@@ -275,12 +279,69 @@ class DashboardController extends AbstractController
                         $tienda = $worksheet->getCell('K'.$row)->getValue();
                         array_push($tiendas,$tienda);
                     }
-                }
+
+                    ///busca objeto cadena para insertar
+                    //$cadenaObj = $empresaRepository->findOneBy(array('name' => $cadena));
+                    /// busca objeto tienda para insertar
+                    //$tiendaObj = $tiendaRepository->findOneBy(array('nombre' => $tienda));
+                    /// busca si existe la carga
+                    //$existe = $GastosRepository->findOneBy(array('cadena' => $cadenaObj, 'tienda' => $tiendaObj ));
+
+                    /// insertar carga nueva si columna es A nuevo gasto para insertar
+                    if (in_array($column, array('A')))
+                    {
+                        $gastos = new Gastos();
+                        $gastos->setModeloPdv1($cell);
+                    }
+
+                    if (in_array($column, array('B'))){$gastos->setTipoPdv1($cell);}
+                    if (in_array($column, array('C'))){$gastos->setPdv1Q($cell);}
+                    if (in_array($column, array('D'))){$gastos->setModeloPdv2($cell);}
+                    if (in_array($column, array('E'))){$gastos->setTipoPdv2($cell);}
+                    if (in_array($column, array('F'))){$gastos->setPdv2Q($cell);}
+                    if (in_array($column, array('G'))){$gastos->setSupDiasSe($cell);}
+                    if (in_array($column, array('H'))){$gastos->setTipoSupervision($cell);}
+                    if (in_array($column, array('I'))){$gastos->setZonaCiudad($cell);}
+                    if (in_array($column, array('J'))){$gastos->setCadena($cell);}
+                    if (in_array($column, array('K'))){$gastos->setTienda($cell);}
+                    if (in_array($column, array('L'))){$gastos->setVentaPromedio($cell);}
+                    if (in_array($column, array('M'))){$gastos->setIncrementoVenta($cell);}
+                    if (in_array($column, array('N'))){$gastos->setVentaTotal($cell);}
+                    if (in_array($column, array('O'))){$gastos->setComisionRetail($cell);}
+                    if (in_array($column, array('P'))){$gastos->setMargenTienda($cell);}
+                    if (in_array($column, array('Q'))){$gastos->setSupervision($cell);}
+                    if (in_array($column, array('R'))){$gastos->setVendedorReposicion01($cell);}
+                    if (in_array($column, array('S'))){$gastos->setVendedorReposicion02($cell);}
+                    if (in_array($column, array('T'))){$gastos->setBodegaje($cell);}
+                    if (in_array($column, array('U'))){$gastos->setPacking($cell);}
+                    if (in_array($column, array('V'))){$gastos->setPicking($cell);}
+                    if (in_array($column, array('W'))){$gastos->setTransporte($cell);}
+                    if (in_array($column, array('X'))){$gastos->setCostoMercaderia($cell);}
+                    if (in_array($column, array('Y'))){$gastos->setMerma($cell);}
+                    if (in_array($column, array('Z'))){$gastos->setMuebles($cell);}
+                    if (in_array($column, array('AA'))){$gastos->setMargenOperacional($cell);}
+                    if (in_array($column, array('AB'))){$gastos->setGastosAdministracion($cell);}
+                    if (in_array($column, array('AC'))){$gastos->setResultadoActual($cell);}
+                    if (in_array($column, array('AD'))){$gastos->setResultadoModelo($cell);}
+
+                    if (in_array($column, array('AE')))
+                    {
+                        $contador11++;
+
+                        $gastos->setDiferencial($cell);
+                        
+                        $entityManager->persist($gastos);
+                        $entityManager->flush();
+                    } /// fin in_array($column, array('AE')
+
+                } /// fin in_array($column, array('AF','AG','AH','AI','AJ')
             }/// fin columna
         }//// fin row 
         dump($column); 
+        dump($cells); 
         //$mostrar = 'Insert:'.$countNuevo.' Update:'.$countExiste; //.' '.$variables;
-        dump($cells);exit;
+        dump($contador11);exit;
+
         
     
      }     

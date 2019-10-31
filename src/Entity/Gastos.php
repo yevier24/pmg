@@ -72,102 +72,102 @@ class Gastos
     private $tienda;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="decimal", precision=19, scale=2, nullable=true)
      */
     private $venta_promedio;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="decimal", precision=19, scale=2, nullable=true)
      */
     private $incremento_venta;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="decimal", precision=19, scale=2, nullable=true)
      */
     private $venta_total;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="decimal", precision=19, scale=2, nullable=true)
      */
     private $comision_retail;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="decimal", precision=19, scale=2, nullable=true)
      */
     private $margen_tienda;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="decimal", precision=19, scale=2, nullable=true)
      */
     private $supervision;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="decimal", precision=19, scale=2, nullable=true)
      */
     private $vendedor_reposicion_01;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="decimal", precision=19, scale=2, nullable=true)
      */
     private $vendedor_reposicion_02;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="decimal", precision=19, scale=2, nullable=true)
      */
     private $bodegaje;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="decimal", precision=19, scale=2, nullable=true)
      */
     private $packing;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="decimal", precision=19, scale=2, nullable=true)
      */
     private $picking;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="decimal", precision=19, scale=2, nullable=true)
      */
     private $transporte;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="decimal", precision=19, scale=2, nullable=true)
      */
     private $costo_mercaderia;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="decimal", precision=19, scale=2, nullable=true)
      */
     private $merma;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="decimal", precision=19, scale=2, nullable=true)
      */
     private $muebles;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="decimal", precision=19, scale=2, nullable=true)
      */
     private $margen_operacional;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="decimal", precision=19, scale=2, nullable=true)
      */
     private $gastos_administracion;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="decimal", precision=19, scale=2, nullable=true)
      */
     private $resultado_actual;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="decimal", precision=19, scale=2, nullable=true)
      */
     private $resultado_modelo;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="decimal", precision=19, scale=2, nullable=true)
      */
     private $diferencial;
 
@@ -324,240 +324,240 @@ class Gastos
         return $this;
     }
 
-    public function getVentaPromedio(): ?string
+    public function getVentaPromedio()
     {
         return $this->venta_promedio;
     }
 
-    public function setVentaPromedio(?string $venta_promedio): self
+    public function setVentaPromedio($venta_promedio)
     {
         $this->venta_promedio = $venta_promedio;
 
         return $this;
     }
 
-    public function getIncrementoVenta(): ?string
+    public function getIncrementoVenta()
     {
         return $this->incremento_venta;
     }
 
-    public function setIncrementoVenta(?string $incremento_venta): self
+    public function setIncrementoVenta($incremento_venta)
     {
         $this->incremento_venta = $incremento_venta;
 
         return $this;
     }
 
-    public function getVentaTotal(): ?string
+    public function getVentaTotal()
     {
         return $this->venta_total;
     }
 
-    public function setVentaTotal(?string $venta_total): self
+    public function setVentaTotal($venta_total)
     {
         $this->venta_total = $venta_total;
 
         return $this;
     }
 
-    public function getComisionRetail(): ?string
+    public function getComisionRetail()
     {
         return $this->comision_retail;
     }
 
-    public function setComisionRetail(?string $comision_retail): self
+    public function setComisionRetail($comision_retail)
     {
         $this->comision_retail = $comision_retail;
 
         return $this;
     }
 
-    public function getMargenTienda(): ?string
+    public function getMargenTienda()
     {
         return $this->margen_tienda;
     }
 
-    public function setMargenTienda(?string $margen_tienda): self
+    public function setMargenTienda($margen_tienda)
     {
         $this->margen_tienda = $margen_tienda;
 
         return $this;
     }
 
-    public function getSupervision(): ?string
+    public function getSupervision()
     {
         return $this->supervision;
     }
 
-    public function setSupervision(?string $supervision): self
+    public function setSupervision($supervision)
     {
         $this->supervision = $supervision;
 
         return $this;
     }
 
-    public function getVendedorReposicion01(): ?string
+    public function getVendedorReposicion01()
     {
         return $this->vendedor_reposicion_01;
     }
 
-    public function setVendedorReposicion01(?string $vendedor_reposicion_01): self
+    public function setVendedorReposicion01($vendedor_reposicion_01)
     {
         $this->vendedor_reposicion_01 = $vendedor_reposicion_01;
 
         return $this;
     }
 
-    public function getVendedorReposicion02(): ?string
+    public function getVendedorReposicion02()
     {
         return $this->vendedor_reposicion_02;
     }
 
-    public function setVendedorReposicion02(?string $vendedor_reposicion_02): self
+    public function setVendedorReposicion02($vendedor_reposicion_02)
     {
         $this->vendedor_reposicion_02 = $vendedor_reposicion_02;
 
         return $this;
     }
 
-    public function getBodegaje(): ?string
+    public function getBodegaje()
     {
         return $this->bodegaje;
     }
 
-    public function setBodegaje(?string $bodegaje): self
+    public function setBodegaje($bodegaje)
     {
         $this->bodegaje = $bodegaje;
 
         return $this;
     }
 
-    public function getPacking(): ?string
+    public function getPacking()
     {
         return $this->packing;
     }
 
-    public function setPacking(?string $packing): self
+    public function setPacking($packing)
     {
         $this->packing = $packing;
 
         return $this;
     }
 
-    public function getPicking(): ?string
+    public function getPicking()
     {
         return $this->picking;
     }
 
-    public function setPicking(?string $picking): self
+    public function setPicking($picking)
     {
         $this->picking = $picking;
 
         return $this;
     }
 
-    public function getTransporte(): ?string
+    public function getTransporte()
     {
         return $this->transporte;
     }
 
-    public function setTransporte(?string $transporte): self
+    public function setTransporte($transporte)
     {
         $this->transporte = $transporte;
 
         return $this;
     }
 
-    public function getCostoMercaderia(): ?string
+    public function getCostoMercaderia()
     {
         return $this->costo_mercaderia;
     }
 
-    public function setCostoMercaderia(?string $costo_mercaderia): self
+    public function setCostoMercaderia($costo_mercaderia)
     {
         $this->costo_mercaderia = $costo_mercaderia;
 
         return $this;
     }
 
-    public function getMerma(): ?string
+    public function getMerma()
     {
         return $this->merma;
     }
 
-    public function setMerma(?string $merma): self
+    public function setMerma($merma)
     {
         $this->merma = $merma;
 
         return $this;
     }
 
-    public function getMuebles(): ?string
+    public function getMuebles()
     {
         return $this->muebles;
     }
 
-    public function setMuebles(?string $muebles): self
+    public function setMuebles($muebles)
     {
         $this->muebles = $muebles;
 
         return $this;
     }
 
-    public function getMargenOperacional(): ?string
+    public function getMargenOperacional()
     {
         return $this->margen_operacional;
     }
 
-    public function setMargenOperacional(?string $margen_operacional): self
+    public function setMargenOperacional($margen_operacional)
     {
         $this->margen_operacional = $margen_operacional;
 
         return $this;
     }
 
-    public function getGastosAdministracion(): ?string
+    public function getGastosAdministracion()
     {
         return $this->gastos_administracion;
     }
 
-    public function setGastosAdministracion(?string $gastos_administracion): self
+    public function setGastosAdministracion($gastos_administracion)
     {
         $this->gastos_administracion = $gastos_administracion;
 
         return $this;
     }
 
-    public function getResultadoActual(): ?string
+    public function getResultadoActual()
     {
         return $this->resultado_actual;
     }
 
-    public function setResultadoActual(?string $resultado_actual): self
+    public function setResultadoActual($resultado_actual)
     {
         $this->resultado_actual = $resultado_actual;
 
         return $this;
     }
 
-    public function getResultadoModelo(): ?string
+    public function getResultadoModelo()
     {
         return $this->resultado_modelo;
     }
 
-    public function setResultadoModelo(?string $resultado_modelo): self
+    public function setResultadoModelo($resultado_modelo)
     {
         $this->resultado_modelo = $resultado_modelo;
 
         return $this;
     }
 
-    public function getDiferencial(): ?string
+    public function getDiferencial()
     {
         return $this->diferencial;
     }
 
-    public function setDiferencial(?string $diferencial): self
+    public function setDiferencial($diferencial)
     {
         $this->diferencial = $diferencial;
 
@@ -569,7 +569,7 @@ class Gastos
         return $this->fecha_i;
     }
 
-    public function setFechaI(\DateTimeInterface $fecha_i): self
+    public function setFechaI(\DateTimeInterface $fecha_i)
     {
         $this->fecha_i = $fecha_i;
 
@@ -581,7 +581,7 @@ class Gastos
         return $this->fecha_u;
     }
 
-    public function setFechaU(\DateTimeInterface $fecha_u): self
+    public function setFechaU(\DateTimeInterface $fecha_u)
     {
         $this->fecha_u = $fecha_u;
 
